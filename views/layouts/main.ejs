@@ -1,17 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <!-- no external fonts - Times New Roman --> 
     <link rel="stylesheet" href="/css/style.css">
-    <script>
-        (function() {
-            var t = localStorage.getItem('jc-theme');
-            if (t) document.documentElement.setAttribute('data-theme', t);
-        })();
-    </script>
 </head>
 <body>
     <div class="splash" id="splash">
@@ -36,12 +29,6 @@
                 document.getElementById('splash').classList.add('hide');
             }, 2000);
         });
-        function toggleTheme() {
-            var h = document.documentElement;
-            var next = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            h.setAttribute('data-theme', next);
-            localStorage.setItem('jc-theme', next);
-        }
     </script>
 </body>
 </html>

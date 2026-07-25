@@ -2,97 +2,49 @@
    JOBCARE — Professional Design System
    ═══════════════════════════════════════════════════ */
 
-/* ─── DARK THEME (default) ─── */
+/* ─── THEME (light only) ─── */
 :root {
-    --bg:              #212842;
-    --bg-elevated:     #282f4c;
-    --surface-1:       #282f4c;
-    --surface-2:       #2f3758;
-    --surface-3:       #363f64;
-    --border:          rgba(240, 231, 213, 0.1);
-    --border-light:    rgba(240, 231, 213, 0.18);
-    --border-focus:    rgba(240, 231, 213, 0.35);
-
-    --accent:          #F0E7D5;
-    --accent-hover:    #f6efe5;
-    --accent-dim:      rgba(240, 231, 213, 0.08);
-    --accent-glow:     rgba(240, 231, 213, 0.15);
-
-    --text:            #F0E7D5;
-    --text-secondary:  rgba(240, 231, 213, 0.55);
-    --text-muted:      rgba(240, 231, 213, 0.28);
-
-    --glass-bg:        rgba(240, 231, 213, 0.03);
-    --glass-bg-mid:    rgba(240, 231, 213, 0.055);
-    --glass-bg-strong: rgba(240, 231, 213, 0.08);
-    --glass-border:    rgba(240, 231, 213, 0.08);
-    --glass-border-mid:rgba(240, 231, 213, 0.14);
-    --glass-shine:     inset 0 1px 0 rgba(240, 231, 213, 0.06);
-    --glass-shadow:    0 8px 32px rgba(0, 0, 0, 0.3);
-
-    --nav-bg:          rgba(33, 40, 66, 0.8);
-    --nav-blur:        blur(20px) saturate(1.3);
-    --orb-1:           rgba(240, 231, 213, 0.06);
-    --orb-2:           rgba(240, 231, 213, 0.03);
-    --orb-3:           rgba(240, 231, 213, 0.015);
-    --orb-size:        1;
-
-    --input-bg:        rgba(240, 231, 213, 0.03);
-    --input-border:    rgba(240, 231, 213, 0.1);
-    --input-focus-bg:  rgba(240, 231, 213, 0.06);
-    --chip-bg:         rgba(240, 231, 213, 0.04);
-    --chip-active-bg:  rgba(240, 231, 213, 0.1);
-    --chip-active-bdr: rgba(240, 231, 213, 0.3);
-    --tag-bg:          rgba(240, 231, 213, 0.04);
-    --tag-border:      rgba(240, 231, 213, 0.07);
-
-    --card-bg:         rgba(240, 231, 213, 0.03);
-    --card-hover-bg:   rgba(240, 231, 213, 0.06);
-    --card-shadow:     0 4px 20px rgba(0, 0, 0, 0.2);
-    --card-shadow-up:  0 8px 32px rgba(0, 0, 0, 0.3);
-
-    --footer-bg:       rgba(33, 40, 66, 0.5);
-    --footer-border:   rgba(240, 231, 213, 0.08);
-    --save-bg:         rgba(240, 231, 213, 0.03);
-}
-
-/* ─── LIGHT THEME ─── */
-[data-theme="light"] {
     --bg:              #F0E7D5;
     --bg-elevated:     #f5efe3;
     --surface-1:       #f5efe3;
     --surface-2:       #faf6ef;
     --surface-3:       #faf6ef;
-    --border:          rgba(33, 40, 66, 0.1);
-    --border-light:    rgba(33, 40, 66, 0.18);
-    --border-focus:    rgba(33, 40, 66, 0.35);
+    --border:          rgba(33, 40, 66, 0.12);
+    --border-light:    rgba(33, 40, 66, 0.2);
+    --border-focus:    rgba(33, 40, 66, 0.4);
 
     --text:            #212842;
-    --text-secondary:  rgba(33, 40, 66, 0.6);
-    --text-muted:      rgba(33, 40, 66, 0.3);
+    --text-secondary:  rgba(33, 40, 66, 0.65);
+    --text-muted:      rgba(33, 40, 66, 0.35);
+
+    --accent:          #212842;
+    --accent-hover:    #1a1f35;
+    --accent-dim:      rgba(33, 40, 66, 0.08);
+    --accent-glow:     rgba(33, 40, 66, 0.12);
 
     --glass-bg:        rgba(33, 40, 66, 0.04);
-    --glass-bg-mid:    rgba(33, 40, 66, 0.06);
-    --glass-bg-strong: rgba(33, 40, 66, 0.08);
-    --glass-border:    rgba(33, 40, 66, 0.08);
-    --glass-border-mid:rgba(33, 40, 66, 0.14);
+    --glass-bg-mid:    rgba(33, 40, 66, 0.07);
+    --glass-bg-strong: rgba(33, 40, 66, 0.09);
+    --glass-border:    rgba(33, 40, 66, 0.1);
+    --glass-border-mid:rgba(33, 40, 66, 0.16);
     --glass-shine:     inset 0 1px 0 rgba(255, 255, 255, 0.5);
     --glass-shadow:    0 8px 32px rgba(33, 40, 66, 0.06);
 
-    --nav-bg:          rgba(240, 231, 213, 0.8);
+    --nav-bg:          rgba(240, 231, 213, 0.85);
+    --nav-blur:        blur(20px) saturate(1.3);
     --orb-1:           rgba(33, 40, 66, 0.04);
     --orb-2:           rgba(33, 40, 66, 0.02);
     --orb-3:           rgba(33, 40, 66, 0.01);
     --orb-size:        0.5;
 
-    --input-bg:        rgba(33, 40, 66, 0.03);
-    --input-border:    rgba(33, 40, 66, 0.1);
-    --input-focus-bg:  rgba(33, 40, 66, 0.05);
-    --chip-bg:         rgba(33, 40, 66, 0.04);
-    --chip-active-bg:  rgba(33, 40, 66, 0.08);
-    --chip-active-bdr: rgba(33, 40, 66, 0.25);
-    --tag-bg:          rgba(33, 40, 66, 0.04);
-    --tag-border:      rgba(33, 40, 66, 0.07);
+    --input-bg:        rgba(33, 40, 66, 0.04);
+    --input-border:    rgba(33, 40, 66, 0.12);
+    --input-focus-bg:  rgba(33, 40, 66, 0.06);
+    --chip-bg:         rgba(33, 40, 66, 0.05);
+    --chip-active-bg:  rgba(33, 40, 66, 0.1);
+    --chip-active-bdr: rgba(33, 40, 66, 0.3);
+    --tag-bg:          rgba(33, 40, 66, 0.05);
+    --tag-border:      rgba(33, 40, 66, 0.08);
 
     --card-bg:         rgba(33, 40, 66, 0.03);
     --card-hover-bg:   rgba(33, 40, 66, 0.06);
@@ -294,35 +246,6 @@ body {
 
 .nav-right { display: flex; align-items: center; gap: 8px; }
 
-/* Theme toggle */
-.theme-toggle {
-    width: 36px; height: 36px;
-    border-radius: 9px;
-    border: 1px solid var(--glass-border);
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    color: var(--text-secondary);
-    transition: all 0.25s;
-    position: relative; overflow: hidden;
-}
-.theme-toggle:hover {
-    background: var(--glass-bg-mid);
-    border-color: var(--glass-border-mid);
-    color: var(--accent);
-}
-.theme-toggle svg {
-    width: 17px; height: 17px;
-    position: absolute;
-    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
-}
-.theme-toggle .ico-moon { opacity: 1; transform: rotate(0) scale(1); }
-.theme-toggle .ico-sun  { opacity: 0; transform: rotate(-90deg) scale(0.4); }
-[data-theme="light"] .theme-toggle .ico-moon { opacity: 0; transform: rotate(90deg) scale(0.4); }
-[data-theme="light"] .theme-toggle .ico-sun  { opacity: 1; transform: rotate(0) scale(1); }
-
 /* ═══════════════════════════════════════════════════
    BUTTONS
    ═══════════════════════════════════════════════════ */
@@ -391,7 +314,7 @@ body {
     font-size: 12.5px; font-weight: 500;
     color: var(--accent);
     background: var(--accent-dim);
-    border: 1px solid rgba(56,189,248,0.15);
+    border: 1px solid rgba(33,40,66,0.12);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     margin-bottom: 28px;
@@ -466,18 +389,18 @@ body {
     display: flex; align-items: center; justify-content: center;
     margin-bottom: 20px;
     background: var(--accent-dim);
-    border: 1px solid rgba(56,189,248,0.15);
+    border: 1px solid rgba(33,40,66,0.12);
     color: var(--accent);
 }
 .feature-icon svg { width: 22px; height: 22px; }
 .feature-icon.cyan {
     background: var(--accent-dim);
-    border-color: rgba(56,189,248,0.15);
+    border-color: rgba(33,40,66,0.12);
     color: var(--accent);
 }
 .feature-icon.green {
     background: var(--accent-dim);
-    border-color: rgba(56,189,248,0.15);
+    border-color: rgba(33,40,66,0.12);
     color: var(--accent);
 }
 
@@ -640,10 +563,10 @@ body {
     display: flex; align-items: center; justify-content: center;
     font-weight: 700; font-size: 15px; flex-shrink: 0;
 }
-.job-logo.blue   { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(56,189,248,0.15); }
-.job-logo.cyan   { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(56,189,248,0.15); }
-.job-logo.green  { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(56,189,248,0.15); }
-.job-logo.amber  { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(56,189,248,0.15); }
+.job-logo.blue   { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(33,40,66,0.12); }
+.job-logo.cyan   { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(33,40,66,0.12); }
+.job-logo.green  { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(33,40,66,0.12); }
+.job-logo.amber  { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(33,40,66,0.12); }
 
 .job-save {
     width: 30px; height: 30px; border-radius: 7px;
@@ -667,8 +590,8 @@ body {
     border: 1px solid var(--tag-border);
     color: var(--text-secondary);
 }
-.jtag.type  { color: var(--accent); background: var(--accent-dim); border-color: rgba(56,189,248,0.15); }
-.jtag.remote{ color: var(--accent); background: var(--accent-dim); border-color: rgba(56,189,248,0.12); }
+.jtag.type  { color: var(--accent); background: var(--accent-dim); border-color: rgba(33,40,66,0.12); }
+.jtag.remote{ color: var(--accent); background: var(--accent-dim); border-color: rgba(33,40,66,0.1); }
 
 .job-card-foot {
     display: flex; align-items: center; justify-content: space-between;
@@ -719,7 +642,7 @@ body {
     width: 72px; height: 72px;
     border-radius: 50%;
     background: var(--accent-dim);
-    border: 1.5px solid rgba(56,189,248,0.25);
+    border: 1.5px solid rgba(33,40,66,0.2);
     display: flex; align-items: center; justify-content: center;
     position: relative; z-index: 2;
     transition: all 0.3s ease;
@@ -729,20 +652,20 @@ body {
     color: var(--accent);
 }
 .breathing-ring:hover .breath-core {
-    border-color: rgba(56,189,248,0.5);
-    box-shadow: 0 0 40px rgba(56,189,248,0.15);
+    border-color: rgba(33,40,66,0.4);
+    box-shadow: 0 0 40px rgba(33,40,66,0.1);
 }
 .breathing-ring.listening .breath-core {
-    background: rgba(56,189,248,0.15);
-    border-color: rgba(56,189,248,0.5);
-    box-shadow: 0 0 50px rgba(56,189,248,0.2);
+    background: rgba(33,40,66,0.12);
+    border-color: rgba(33,40,66,0.45);
+    box-shadow: 0 0 50px rgba(33,40,66,0.15);
 }
 
 /* Ripple orbits */
 .breath-orbit {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(56,189,248,0.08);
+    border: 1px solid rgba(33,40,66,0.08);
     transition: border-color 0.3s;
 }
 .br-1 { width: 96px; height: 96px; z-index: 1; }
@@ -751,16 +674,16 @@ body {
 
 .breathing-ring.listening .br-1 {
     animation: breathPulse 2.5s ease-in-out infinite;
-    border-color: rgba(56,189,248,0.2);
+    border-color: rgba(33,40,66,0.18);
 }
 .breathing-ring.listening .br-2 {
     animation: breathPulse 2.5s 0.4s ease-in-out infinite;
-    border-color: rgba(56,189,248,0.12);
+    border-color: rgba(33,40,66,0.12);
 }
 .breathing-ring.listening .br-3 {
     opacity: 1;
     animation: breathPulse 2.5s 0.8s ease-in-out infinite;
-    border-color: rgba(56,189,248,0.06);
+    border-color: rgba(33,40,66,0.06);
 }
 
 @keyframes breathPulse {

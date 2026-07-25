@@ -4,104 +4,104 @@
 
 /* ─── DARK THEME (default) ─── */
 :root {
-    --bg:              #2E0D14;
-    --bg-elevated:     #3a1219;
-    --surface-1:       #3a1219;
-    --surface-2:       #461822;
-    --surface-3:       #521e2c;
-    --border:          rgba(239, 225, 213, 0.1);
-    --border-light:    rgba(239, 225, 213, 0.18);
-    --border-focus:    rgba(239, 225, 213, 0.35);
+    --bg:              #212842;
+    --bg-elevated:     #282f4c;
+    --surface-1:       #282f4c;
+    --surface-2:       #2f3758;
+    --surface-3:       #363f64;
+    --border:          rgba(240, 231, 213, 0.1);
+    --border-light:    rgba(240, 231, 213, 0.18);
+    --border-focus:    rgba(240, 231, 213, 0.35);
 
-    --accent:          #EFE1D5;
-    --accent-hover:    #f5ede4;
-    --accent-dim:      rgba(239, 225, 213, 0.08);
-    --accent-glow:     rgba(239, 225, 213, 0.15);
+    --accent:          #F0E7D5;
+    --accent-hover:    #f6efe5;
+    --accent-dim:      rgba(240, 231, 213, 0.08);
+    --accent-glow:     rgba(240, 231, 213, 0.15);
 
-    --text:            #EFE1D5;
-    --text-secondary:  rgba(239, 225, 213, 0.55);
-    --text-muted:      rgba(239, 225, 213, 0.28);
+    --text:            #F0E7D5;
+    --text-secondary:  rgba(240, 231, 213, 0.55);
+    --text-muted:      rgba(240, 231, 213, 0.28);
 
-    --glass-bg:        rgba(239, 225, 213, 0.03);
-    --glass-bg-mid:    rgba(239, 225, 213, 0.055);
-    --glass-bg-strong: rgba(239, 225, 213, 0.08);
-    --glass-border:    rgba(239, 225, 213, 0.08);
-    --glass-border-mid:rgba(239, 225, 213, 0.14);
-    --glass-shine:     inset 0 1px 0 rgba(239, 225, 213, 0.06);
-    --glass-shadow:    0 8px 32px rgba(0, 0, 0, 0.35);
+    --glass-bg:        rgba(240, 231, 213, 0.03);
+    --glass-bg-mid:    rgba(240, 231, 213, 0.055);
+    --glass-bg-strong: rgba(240, 231, 213, 0.08);
+    --glass-border:    rgba(240, 231, 213, 0.08);
+    --glass-border-mid:rgba(240, 231, 213, 0.14);
+    --glass-shine:     inset 0 1px 0 rgba(240, 231, 213, 0.06);
+    --glass-shadow:    0 8px 32px rgba(0, 0, 0, 0.3);
 
-    --nav-bg:          rgba(46, 13, 20, 0.8);
+    --nav-bg:          rgba(33, 40, 66, 0.8);
     --nav-blur:        blur(20px) saturate(1.3);
-    --orb-1:           rgba(239, 225, 213, 0.06);
-    --orb-2:           rgba(239, 225, 213, 0.03);
-    --orb-3:           rgba(239, 225, 213, 0.015);
+    --orb-1:           rgba(240, 231, 213, 0.06);
+    --orb-2:           rgba(240, 231, 213, 0.03);
+    --orb-3:           rgba(240, 231, 213, 0.015);
     --orb-size:        1;
 
-    --input-bg:        rgba(239, 225, 213, 0.03);
-    --input-border:    rgba(239, 225, 213, 0.1);
-    --input-focus-bg:  rgba(239, 225, 213, 0.06);
-    --chip-bg:         rgba(239, 225, 213, 0.04);
-    --chip-active-bg:  rgba(239, 225, 213, 0.1);
-    --chip-active-bdr: rgba(239, 225, 213, 0.3);
-    --tag-bg:          rgba(239, 225, 213, 0.04);
-    --tag-border:      rgba(239, 225, 213, 0.07);
+    --input-bg:        rgba(240, 231, 213, 0.03);
+    --input-border:    rgba(240, 231, 213, 0.1);
+    --input-focus-bg:  rgba(240, 231, 213, 0.06);
+    --chip-bg:         rgba(240, 231, 213, 0.04);
+    --chip-active-bg:  rgba(240, 231, 213, 0.1);
+    --chip-active-bdr: rgba(240, 231, 213, 0.3);
+    --tag-bg:          rgba(240, 231, 213, 0.04);
+    --tag-border:      rgba(240, 231, 213, 0.07);
 
-    --card-bg:         rgba(239, 225, 213, 0.03);
-    --card-hover-bg:   rgba(239, 225, 213, 0.06);
-    --card-shadow:     0 4px 20px rgba(0, 0, 0, 0.25);
-    --card-shadow-up:  0 8px 32px rgba(0, 0, 0, 0.35);
+    --card-bg:         rgba(240, 231, 213, 0.03);
+    --card-hover-bg:   rgba(240, 231, 213, 0.06);
+    --card-shadow:     0 4px 20px rgba(0, 0, 0, 0.2);
+    --card-shadow-up:  0 8px 32px rgba(0, 0, 0, 0.3);
 
-    --footer-bg:       rgba(46, 13, 20, 0.5);
-    --footer-border:   rgba(239, 225, 213, 0.08);
-    --save-bg:         rgba(239, 225, 213, 0.03);
+    --footer-bg:       rgba(33, 40, 66, 0.5);
+    --footer-border:   rgba(240, 231, 213, 0.08);
+    --save-bg:         rgba(240, 231, 213, 0.03);
 }
 
 /* ─── LIGHT THEME ─── */
 [data-theme="light"] {
-    --bg:              #EFE1D5;
-    --bg-elevated:     #f5ede4;
-    --surface-1:       #f5ede4;
-    --surface-2:       #faf5ef;
-    --surface-3:       #faf5ef;
-    --border:          rgba(46, 13, 20, 0.08);
-    --border-light:    rgba(46, 13, 20, 0.14);
-    --border-focus:    rgba(46, 13, 20, 0.3);
+    --bg:              #F0E7D5;
+    --bg-elevated:     #f5efe3;
+    --surface-1:       #f5efe3;
+    --surface-2:       #faf6ef;
+    --surface-3:       #faf6ef;
+    --border:          rgba(33, 40, 66, 0.1);
+    --border-light:    rgba(33, 40, 66, 0.18);
+    --border-focus:    rgba(33, 40, 66, 0.35);
 
-    --text:            #2E0D14;
-    --text-secondary:  rgba(46, 13, 20, 0.55);
-    --text-muted:      rgba(46, 13, 20, 0.28);
+    --text:            #212842;
+    --text-secondary:  rgba(33, 40, 66, 0.6);
+    --text-muted:      rgba(33, 40, 66, 0.3);
 
-    --glass-bg:        rgba(46, 13, 20, 0.04);
-    --glass-bg-mid:    rgba(46, 13, 20, 0.06);
-    --glass-bg-strong: rgba(46, 13, 20, 0.08);
-    --glass-border:    rgba(46, 13, 20, 0.08);
-    --glass-border-mid:rgba(46, 13, 20, 0.14);
+    --glass-bg:        rgba(33, 40, 66, 0.04);
+    --glass-bg-mid:    rgba(33, 40, 66, 0.06);
+    --glass-bg-strong: rgba(33, 40, 66, 0.08);
+    --glass-border:    rgba(33, 40, 66, 0.08);
+    --glass-border-mid:rgba(33, 40, 66, 0.14);
     --glass-shine:     inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    --glass-shadow:    0 8px 32px rgba(46, 13, 20, 0.06);
+    --glass-shadow:    0 8px 32px rgba(33, 40, 66, 0.06);
 
-    --nav-bg:          rgba(239, 225, 213, 0.8);
-    --orb-1:           rgba(46, 13, 20, 0.04);
-    --orb-2:           rgba(46, 13, 20, 0.02);
-    --orb-3:           rgba(46, 13, 20, 0.01);
+    --nav-bg:          rgba(240, 231, 213, 0.8);
+    --orb-1:           rgba(33, 40, 66, 0.04);
+    --orb-2:           rgba(33, 40, 66, 0.02);
+    --orb-3:           rgba(33, 40, 66, 0.01);
     --orb-size:        0.5;
 
-    --input-bg:        rgba(46, 13, 20, 0.03);
-    --input-border:    rgba(46, 13, 20, 0.1);
-    --input-focus-bg:  rgba(46, 13, 20, 0.05);
-    --chip-bg:         rgba(46, 13, 20, 0.04);
-    --chip-active-bg:  rgba(46, 13, 20, 0.08);
-    --chip-active-bdr: rgba(46, 13, 20, 0.25);
-    --tag-bg:          rgba(46, 13, 20, 0.04);
-    --tag-border:      rgba(46, 13, 20, 0.07);
+    --input-bg:        rgba(33, 40, 66, 0.03);
+    --input-border:    rgba(33, 40, 66, 0.1);
+    --input-focus-bg:  rgba(33, 40, 66, 0.05);
+    --chip-bg:         rgba(33, 40, 66, 0.04);
+    --chip-active-bg:  rgba(33, 40, 66, 0.08);
+    --chip-active-bdr: rgba(33, 40, 66, 0.25);
+    --tag-bg:          rgba(33, 40, 66, 0.04);
+    --tag-border:      rgba(33, 40, 66, 0.07);
 
-    --card-bg:         rgba(46, 13, 20, 0.03);
-    --card-hover-bg:   rgba(46, 13, 20, 0.06);
-    --card-shadow:     0 4px 20px rgba(46, 13, 20, 0.05);
-    --card-shadow-up:  0 8px 32px rgba(46, 13, 20, 0.08);
+    --card-bg:         rgba(33, 40, 66, 0.03);
+    --card-hover-bg:   rgba(33, 40, 66, 0.06);
+    --card-shadow:     0 4px 20px rgba(33, 40, 66, 0.05);
+    --card-shadow-up:  0 8px 32px rgba(33, 40, 66, 0.08);
 
-    --footer-bg:       rgba(239, 225, 213, 0.5);
-    --footer-border:   rgba(46, 13, 20, 0.08);
-    --save-bg:         rgba(46, 13, 20, 0.03);
+    --footer-bg:       rgba(240, 231, 213, 0.5);
+    --footer-border:   rgba(33, 40, 66, 0.08);
+    --save-bg:         rgba(33, 40, 66, 0.03);
 }
 
 /* ═══════════════════════════════════════════════════

@@ -15,15 +15,27 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.render('index', { title: 'JOBCARE - AI-Powered Job Matching' });
+    res.render('index', { title: 'JOBCARE - AI-Powered Job Matching', current: 'home' });
+});
+
+app.get('/about', (req, res) => {
+    res.render('about', { title: 'JOBCARE - About Us', current: 'about' });
+});
+
+app.get('/jobs', (req, res) => {
+    res.render('jobs', { title: 'JOBCARE - Find Jobs', current: 'jobs' });
+});
+
+app.get('/ai-voice', (req, res) => {
+    res.render('ai-voice', { title: 'JOBCARE - AI Voice Search', current: 'ai-voice' });
 });
 
 app.get('/login', (req, res) => {
-    res.render('login', { title: 'JOBCARE - Login' });
+    res.render('login', { title: 'JOBCARE - Sign In', current: 'login' });
 });
 
 app.get('/signup', (req, res) => {
-    res.render('signup', { title: 'JOBCARE - Sign Up' });
+    res.render('signup', { title: 'JOBCARE - Create Account', current: 'signup' });
 });
 
 app.listen(PORT, () => {

@@ -24,37 +24,48 @@
 
 <div class="voice-hero">
     <div>
-        <div class="mic-ring" id="micBtn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-                <line x1="12" y1="19" x2="12" y2="23"/>
-                <line x1="8" y1="23" x2="16" y2="23"/>
+        <!-- Breathing Ring -->
+        <div class="breathing-ring" id="micBtn">
+            <div class="breath-orbit br-1"></div>
+            <div class="breath-orbit br-2"></div>
+            <div class="breath-orbit br-3"></div>
+            <div class="breath-core">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="23"/>
+                    <line x1="8" y1="23" x2="16" y2="23"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Waveform -->
+        <div class="waveform-wrap" id="waveform">
+            <svg class="wave-svg" viewBox="0 0 600 40" preserveAspectRatio="none">
+                <path class="wave-path" d="" stroke="var(--accent)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
             </svg>
         </div>
-        <h1 style="font-size: 36px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px;">
-            Tap to <span class="hl">Start Speaking</span>
-        </h1>
-        <p style="font-size: 16px; color: var(--text-secondary); max-width: 480px; margin: 0 auto; line-height: 1.7;">
+
+        <h1 class="voice-title">Tap to <span class="hl">Start Speaking</span></h1>
+        <p class="voice-desc">
             Tell our AI about your skills, experience, and what kind of job you're looking for.
-            It listens, understands, and finds matches that actually make sense.
         </p>
         <p class="voice-hint" id="voiceHint">Click the microphone to begin</p>
 
-        <div style="display: flex; gap: 12px; justify-content: center; margin-top: 40px;">
+        <div class="voice-cards-row">
             <div class="glass" style="padding: 24px; text-align: left; max-width: 260px;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-                    <span style="font-size: 14px; font-weight: 600;">How it works</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    <span style="font-size: 13px; font-weight: 600;">How it works</span>
                 </div>
-                <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.6;">Speak naturally. Our AI transcribes and analyzes your voice in real-time to understand your profile.</p>
+                <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;">Speak naturally. Our AI transcribes and analyzes your voice in real-time to build your profile.</p>
             </div>
             <div class="glass" style="padding: 24px; text-align: left; max-width: 260px;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent-secondary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                    <span style="font-size: 14px; font-weight: 600;">Get results</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    <span style="font-size: 13px; font-weight: 600;">Get results</span>
                 </div>
-                <p style="font-size: 12.5px; color: var(--text-secondary); line-height: 1.6;">Within seconds, receive a ranked list of job opportunities tailored to what you just described.</p>
+                <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;">Within seconds, receive a ranked list of job opportunities tailored to what you described.</p>
             </div>
         </div>
     </div>
@@ -65,20 +76,43 @@
 </footer>
 
 <script>
-document.getElementById('micBtn').addEventListener('click', function() {
+(function() {
+    var mic = document.getElementById('micBtn');
     var hint = document.getElementById('voiceHint');
-    if (this.classList.contains('listening')) {
-        this.classList.remove('listening');
-        this.style.borderColor = '';
-        this.style.boxShadow = '';
-        hint.textContent = 'Click the microphone to begin';
-        hint.style.color = '';
-    } else {
-        this.classList.add('listening');
-        this.style.borderColor = 'rgba(99, 102, 241, 0.5)';
-        this.style.boxShadow = '0 0 60px rgba(99, 102, 241, 0.3)';
-        hint.textContent = 'Listening... tap to stop';
-        hint.style.color = 'var(--accent)';
+    var wave = document.getElementById('waveform');
+    var listening = false;
+    var animFrame;
+
+    // Minimalist sine waveform
+    function drawWave(time) {
+        var path = wave.querySelector('.wave-path');
+        var w = 600, h = 40, mid = h / 2;
+        var d = 'M 0 ' + mid;
+        for (var x = 0; x <= w; x += 2) {
+            var amp = listening ? 12 : 0;
+            var freq = listening ? 0.03 : 0;
+            var y = mid + Math.sin(x * freq + time * 0.003) * amp * Math.sin(x * 0.005 + time * 0.001);
+            d += ' L ' + x + ' ' + y;
+        }
+        path.setAttribute('d', d);
+        animFrame = requestAnimationFrame(function() { drawWave(time + 16); });
     }
-});
+
+    drawWave(0);
+
+    mic.addEventListener('click', function() {
+        listening = !listening;
+        if (listening) {
+            mic.classList.add('listening');
+            hint.textContent = 'Listening... tap to stop';
+            hint.style.color = 'var(--accent)';
+            wave.classList.add('active');
+        } else {
+            mic.classList.remove('listening');
+            hint.textContent = 'Click the microphone to begin';
+            hint.style.color = '';
+            wave.classList.remove('active');
+        }
+    });
+})();
 </script>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('jobcare-theme');
+            if (saved) document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
 </head>
 <body>
     <div class="splash" id="splash">
@@ -32,6 +38,14 @@
                 document.getElementById('splash').classList.add('hide');
             }, 2200);
         });
+
+        function toggleTheme() {
+            var html = document.documentElement;
+            var current = html.getAttribute('data-theme');
+            var next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('jobcare-theme', next);
+        }
     </script>
 </body>
 </html>

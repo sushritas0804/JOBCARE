@@ -4,6 +4,7 @@
         <div class="logo-text">JOB<span>CARE</span></div>
     </a>
     <ul class="nav-links">
+        <li><a href="#search">Find Jobs</a></li>
         <li><a href="#features">Features</a></li>
         <li><a href="#how">How It Works</a></li>
         <li><a href="#">For Employers</a></li>
@@ -16,7 +17,7 @@
 
 <section class="hero">
     <div class="hero-content">
-        <div class="glass hero-badge">
+        <div class="hero-badge">
             <span class="dot"></span>
             AI-Powered Job Matching
         </div>
@@ -30,7 +31,139 @@
         </p>
         <div class="hero-actions">
             <a href="/signup" class="btn btn-accent btn-lg">Start Speaking</a>
-            <a href="#how" class="btn btn-ghost btn-lg">See How It Works</a>
+            <a href="#search" class="btn btn-ghost btn-lg">Browse Jobs</a>
+        </div>
+    </div>
+</section>
+
+<section class="search-section" id="search">
+    <div class="search-bar">
+        <div class="search-field">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" placeholder="Job title, keyword, or skill...">
+        </div>
+        <div class="divider"></div>
+        <div class="search-field">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <input type="text" placeholder="City, state, or remote...">
+        </div>
+        <button class="search-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            Search
+        </button>
+    </div>
+    <div class="filter-row">
+        <span class="filter-label">Filters:</span>
+        <div class="filter-chip active">All</div>
+        <div class="filter-chip">Remote</div>
+        <div class="filter-chip">Full-Time</div>
+        <div class="filter-chip">Part-Time</div>
+        <div class="filter-chip">Contract</div>
+        <div class="filter-chip">Entry Level</div>
+        <div class="filter-chip">Tech</div>
+        <div class="filter-chip">Design</div>
+        <div class="filter-chip">Marketing</div>
+    </div>
+</section>
+
+<section class="jobs-section">
+    <div class="jobs-header">
+        <h2>Recommended for you</h2>
+        <span class="job-count">128 jobs found</span>
+    </div>
+    <div class="job-grid">
+        <div class="job-card">
+            <div class="job-card-top">
+                <div class="job-card-logo teal">S</div>
+                <div class="job-card-save">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </div>
+            </div>
+            <h3>Senior Frontend Developer</h3>
+            <div class="company">Spotify &middot; San Francisco, CA</div>
+            <div class="job-card-tags">
+                <span class="job-tag type">Full-Time</span>
+                <span class="job-tag remote">Remote</span>
+                <span class="job-tag">React</span>
+                <span class="job-tag">TypeScript</span>
+            </div>
+            <div class="job-card-bottom">
+                <span class="job-salary">$140k – $180k</span>
+                <span class="job-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Remote
+                </span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-card-top">
+                <div class="job-card-logo gold">F</div>
+                <div class="job-card-save">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </div>
+            </div>
+            <h3>UX/UI Designer</h3>
+            <div class="company">Figma &middot; New York, NY</div>
+            <div class="job-card-tags">
+                <span class="job-tag type">Full-Time</span>
+                <span class="job-tag">Figma</span>
+                <span class="job-tag">Design Systems</span>
+            </div>
+            <div class="job-card-bottom">
+                <span class="job-salary">$110k – $145k</span>
+                <span class="job-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Hybrid
+                </span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-card-top">
+                <div class="job-card-logo coral">N</div>
+                <div class="job-card-save">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </div>
+            </div>
+            <h3>AI/ML Engineer</h3>
+            <div class="company">Netflix &middot; Los Gatos, CA</div>
+            <div class="job-card-tags">
+                <span class="job-tag type">Full-Time</span>
+                <span class="job-tag remote">Remote</span>
+                <span class="job-tag">Python</span>
+                <span class="job-tag">PyTorch</span>
+            </div>
+            <div class="job-card-bottom">
+                <span class="job-salary">$160k – $220k</span>
+                <span class="job-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Remote
+                </span>
+            </div>
+        </div>
+
+        <div class="job-card">
+            <div class="job-card-top">
+                <div class="job-card-logo blue">S</div>
+                <div class="job-card-save">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </div>
+            </div>
+            <h3>Product Manager</h3>
+            <div class="company">Slack &middot; Denver, CO</div>
+            <div class="job-card-tags">
+                <span class="job-tag type">Full-Time</span>
+                <span class="job-tag">Agile</span>
+                <span class="job-tag">SaaS</span>
+            </div>
+            <div class="job-card-bottom">
+                <span class="job-salary">$130k – $165k</span>
+                <span class="job-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Hybrid
+                </span>
+            </div>
         </div>
     </div>
 </section>
@@ -42,19 +175,19 @@
     </div>
     <div class="voice-cards">
         <div class="voice-card glass">
-            <div class="card-icon teal">🎙️</div>
+            <div class="card-icon teal">&#x1f3a4;</div>
             <h3>Voice-First Search</h3>
             <p>Tell our AI what you're looking for in natural language. No filters, no forms — just speak.</p>
         </div>
         <div class="voice-card glass">
-            <div class="card-icon gold">🧠</div>
+            <div class="card-icon gold">&#x1f9e0;</div>
             <h3>AI Understanding</h3>
             <p>Our AI goes beyond keywords. It understands context, intent, and the nuance of your career goals.</p>
         </div>
         <div class="voice-card glass">
-            <div class="card-icon blue">🎯</div>
+            <div class="card-icon coral">&#x1f3af;</div>
             <h3>Precision Matching</h3>
-            <p>Get matched with roles that align with your skills, experience level, and aspirations — not just job titles.</p>
+            <p>Get matched with roles that align with your skills, experience, and aspirations — not just job titles.</p>
         </div>
     </div>
 </section>
@@ -86,3 +219,12 @@
 <footer class="footer">
     <p>&copy; 2026 <a href="/">JOBCARE</a>. AI-powered employment, redefined.</p>
 </footer>
+
+<script>
+document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+</script>

@@ -10,11 +10,28 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+    <div class="splash" id="splash">
+        <div class="splash-logo">
+            <div class="logo-icon">JC</div>
+            <div class="logo-text">JOB<span>CARE</span></div>
+        </div>
+        <div class="splash-line"></div>
+    </div>
+
     <div class="bg-orbs">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
     </div>
+
     <%- body %>
+
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('splash').classList.add('hide');
+            }, 2200);
+        });
+    </script>
 </body>
 </html>

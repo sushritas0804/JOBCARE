@@ -1,0 +1,110 @@
+<div class="emp-auth-page">
+    <div class="emp-onboard-card glass-strong">
+        <div class="emp-onboard-head">
+            <div class="logo-wrap">
+                <div class="logo-mark">JC</div>
+                <div class="logo-word">JOB<span>CARE</span></div>
+            </div>
+            <h2>Complete Your Profile</h2>
+            <p>Tell us a bit about yourself to get started.</p>
+        </div>
+
+        <% if (error) { %>
+            <div class="emp-error"><%= error %></div>
+        <% } %>
+
+        <form action="/employer/onboarding" method="POST" id="onboardForm">
+            <div class="form-group">
+                <label>Full Name <span class="required">*</span></label>
+                <input type="text" name="name" placeholder="e.g. Priya Sharma" required value="<%= employer && employer.name ? employer.name : '' %>">
+            </div>
+
+            <div class="form-group">
+                <label>Company Name <span class="required">*</span></label>
+                <div class="emp-autocomplete-wrap">
+                    <input type="text" name="companyName" id="companyInput" placeholder="Type to search companies..." required autocomplete="off" value="<%= employer && employer.companyName ? employer.companyName : '' %>">
+                    <div class="emp-autocomplete-dropdown" id="companyDropdown"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Are you working under a consultancy? <span class="required">*</span></label>
+                <div class="emp-radio-group">
+                    <label class="emp-radio">
+                        <input type="radio" name="isConsultancy" value="yes" <%= employer && employer.isConsultancy ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Yes</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="isConsultancy" value="no" <%= employer && !employer.isConsultancy ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Work Email <span class="required">*</span></label>
+                <input type="email" name="workEmail" placeholder="you@company.com" required value="<%= employer && employer.workEmail ? employer.workEmail : '' %>">
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" id="toc" name="agreedToToc" value="true" required>
+                <label for="toc">I agree to JOBCARE's <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a></label>
+            </div>
+
+            <button type="submit" class="btn btn-primary emp-submit">
+                <span>Complete Profile</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+(function() {
+    var companies = <%- JSON.stringify(companies) %>;
+    var input = document.getElementById('companyInput');
+    var dropdown = document.getElementById('companyDropdown');
+    var selected = false;
+
+    input.addEventListener('input', function() {
+        selected = false;
+        var val = input.value.trim().toLowerCase();
+        if (val.length < 1) { dropdown.style.display = 'none'; return; }
+
+        var matches = companies.filter(function(c) {
+            return c.toLowerCase().indexOf(val) !== -1;
+        }).slice(0, 6);
+
+        var html = '';
+        matches.forEach(function(c) {
+            html += '<div class="emp-ac-option" data-value="' + c.replace(/"/g, '&quot;') + '">' + c + '</div>';
+        });
+        if (matches.indexOf(input.value.trim()) === -1 && input.value.trim().length > 0) {
+            html += '<div class="emp-ac-option emp-ac-new" data-value="' + input.value.trim().replace(/"/g, '&quot;') + '">Add "' + input.value.trim() + '" as new company</div>';
+        }
+
+        if (html) {
+            dropdown.innerHTML = html;
+            dropdown.style.display = 'block';
+        } else {
+            dropdown.style.display = 'none';
+        }
+    });
+
+    dropdown.addEventListener('click', function(e) {
+        var opt = e.target.closest('.emp-ac-option');
+        if (!opt) return;
+        input.value = opt.dataset.value;
+        dropdown.style.display = 'none';
+        selected = true;
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.emp-autocomplete-wrap')) {
+            dropdown.style.display = 'none';
+        }
+    });
+})();
+</script>

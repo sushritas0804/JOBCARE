@@ -1,0 +1,90 @@
+<div class="emp-splash" id="empSplash">
+    <div class="splash-logo">
+        <div class="logo-mark">JC</div>
+        <div class="logo-word">JOB<span>CARE</span></div>
+    </div>
+    <div class="splash-bar-track"><div class="splash-bar-fill"></div></div>
+</div>
+
+<div class="emp-auth-page" id="empAuthPage">
+    <div class="emp-auth-container">
+        <div class="emp-card emp-card-dark">
+            <div class="emp-dark-content">
+                <div class="emp-logo">
+                    <div class="logo-mark">JC</div>
+                    <div class="logo-word">JOB<span>CARE</span></div>
+                </div>
+                <h1>Hire Smarter with JOBCARE</h1>
+                <p class="emp-tagline">AI-powered recruitment platform that connects you with the right candidates.</p>
+                <div class="emp-features">
+                    <div class="emp-feature">
+                        <div class="emp-feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        </div>
+                        <div>
+                            <h3>AI Smart Matching</h3>
+                            <p>Our AI finds the best candidates for your role automatically.</p>
+                        </div>
+                    </div>
+                    <div class="emp-feature">
+                        <div class="emp-feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <div>
+                            <h3>Candidate Database</h3>
+                            <p>Access a growing pool of verified freshers and professionals.</p>
+                        </div>
+                    </div>
+                    <div class="emp-feature">
+                        <div class="emp-feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        </div>
+                        <div>
+                            <h3>Smart Reports</h3>
+                            <p>Track hiring performance with real-time analytics and insights.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="emp-card emp-card-light">
+            <div class="emp-light-content">
+                <div class="emp-auth-head">
+                    <h2>Welcome</h2>
+                    <p>Sign in as an Employer</p>
+                </div>
+
+                <% if (error) { %>
+                    <div class="emp-error"><%= error %></div>
+                <% } %>
+
+                <form action="/employer/send-otp" method="POST" id="mobileForm">
+                    <div class="emp-mobile-group">
+                        <div class="emp-prefix">+91</div>
+                        <input type="tel" name="mobile" id="mobileInput" placeholder="Enter your mobile number" maxlength="10" pattern="[0-9]{10}" required autocomplete="tel">
+                    </div>
+                    <button type="submit" class="btn btn-primary emp-submit" id="sendOtpBtn">
+                        <span id="btnText">Send OTP</span>
+                        <svg id="btnArrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </button>
+                </form>
+
+                <p class="emp-note">New here? Your account is created automatically.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    var splash = document.getElementById('empSplash');
+    var page = document.getElementById('empAuthPage');
+    page.style.opacity = '0';
+    setTimeout(function() {
+        splash.classList.add('hide');
+        page.style.opacity = '1';
+        page.style.transition = 'opacity 0.5s ease';
+    }, 2200);
+})();
+</script>

@@ -1,0 +1,103 @@
+<div class="emp-auth-page">
+    <div class="emp-auth-container">
+        <div class="emp-card emp-card-dark">
+            <div class="emp-dark-content">
+                <div class="emp-logo">
+                    <div class="logo-mark">JC</div>
+                    <div class="logo-word">JOB<span>CARE</span></div>
+                </div>
+                <h1>Verify Your Number</h1>
+                <p class="emp-tagline">We've sent a one-time password to your mobile number for secure verification.</p>
+                <div class="emp-otp-info">
+                    <div class="emp-feature">
+                        <div class="emp-feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        </div>
+                        <div>
+                            <h3>Secure Verification</h3>
+                            <p>OTP expires in 5 minutes. Do not share this code with anyone.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="emp-card emp-card-light">
+            <div class="emp-light-content">
+                <div class="emp-auth-head">
+                    <h2>Enter OTP</h2>
+                    <p>Sent to +91 <%= mobile %></p>
+                </div>
+
+                <% if (error) { %>
+                    <div class="emp-error"><%= error %></div>
+                <% } %>
+
+                <% if (otp) { %>
+                    <div class="emp-otp-mock">
+                        <span class="emp-otp-label">Dev Mode &mdash; Your OTP:</span>
+                        <span class="emp-otp-value"><%= otp %></span>
+                    </div>
+                <% } %>
+
+                <form action="/employer/verify-otp" method="POST">
+                    <input type="hidden" name="mobile" value="<%= mobile %>">
+                    <div class="emp-otp-inputs">
+                        <input type="text" maxlength="1" class="otp-digit" data-index="0" inputmode="numeric" pattern="[0-9]" required>
+                        <input type="text" maxlength="1" class="otp-digit" data-index="1" inputmode="numeric" pattern="[0-9]" required>
+                        <input type="text" maxlength="1" class="otp-digit" data-index="2" inputmode="numeric" pattern="[0-9]" required>
+                        <input type="text" maxlength="1" class="otp-digit" data-index="3" inputmode="numeric" pattern="[0-9]" required>
+                        <input type="text" maxlength="1" class="otp-digit" data-index="4" inputmode="numeric" pattern="[0-9]" required>
+                        <input type="text" maxlength="1" class="otp-digit" data-index="5" inputmode="numeric" pattern="[0-9]" required>
+                    </div>
+                    <input type="hidden" name="otp" id="otpHidden">
+
+                    <button type="submit" class="btn btn-primary emp-submit" id="verifyBtn">
+                        <span>Verify &amp; Continue</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </button>
+                </form>
+
+                <p class="emp-note"><a href="/employer/login">Use a different number</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    var digits = document.querySelectorAll('.otp-digit');
+    var hidden = document.getElementById('otpHidden');
+
+    digits.forEach(function(d, i) {
+        d.addEventListener('input', function() {
+            if (d.value.length === 1 && i < digits.length - 1) {
+                digits[i + 1].focus();
+            }
+            updateHidden();
+        });
+        d.addEventListener('keydown', function(e) {
+            if (e.key === 'Backspace' && !d.value && i > 0) {
+                digits[i - 1].focus();
+            }
+        });
+        d.addEventListener('paste', function(e) {
+            e.preventDefault();
+            var text = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
+            for (var j = 0; j < text.length && j < 6; j++) {
+                digits[j].value = text[j];
+            }
+            if (text.length > 0) digits[Math.min(text.length, 5)].focus();
+            updateHidden();
+        });
+    });
+
+    function updateHidden() {
+        var val = '';
+        digits.forEach(function(d) { val += d.value; });
+        hidden.value = val;
+    }
+
+    if (digits.length > 0) digits[0].focus();
+})();
+</script>

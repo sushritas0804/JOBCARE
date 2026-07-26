@@ -1,0 +1,39 @@
+<div class="dash-section">
+    <div class="dash-section-top">
+        <h2>Billing</h2>
+    </div>
+
+    <div class="dash-billing-section">
+        <h3>GST Details</h3>
+        <% if (employer.gstNumber) { %>
+            <div class="dash-gst-display">
+                <div class="dash-gst-info">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    <div>
+                        <span class="dash-gst-label">Registered GST Number</span>
+                        <span class="dash-gst-number"><%= employer.gstNumber %></span>
+                    </div>
+                </div>
+                <button class="btn btn-ghost btn-sm" onclick="document.getElementById('gstForm').style.display='block'; this.style.display='none';">Edit</button>
+            </div>
+        <% } %>
+
+        <div id="gstForm" class="dash-gst-form" style="<%= employer.gstNumber ? 'display:none' : '' %>">
+            <p class="dash-gst-note">Register your GST number to receive GST-invoices for your subscriptions. This is optional.</p>
+            <form action="/employer/dashboard/billing/gst" method="POST">
+                <div class="dash-gst-input-row">
+                    <input type="text" name="gstNumber" placeholder="e.g. 22AAAAA0000A1Z5" maxlength="15" value="<%= employer.gstNumber || '' %>">
+                    <button type="submit" class="btn btn-primary btn-sm">Save GST Number</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="dash-billing-section">
+        <h3>Invoices</h3>
+        <div class="dash-empty-state dash-empty-state-sm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8"/><path d="M16 12H8"/></svg>
+            <p>No invoices yet. Your invoices will appear here after your first subscription purchase.</p>
+        </div>
+    </div>
+</div>

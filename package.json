@@ -21,8 +21,11 @@
   },
   "homepage": "https://github.com/sushritas0804/JOBCARE#readme",
   "dependencies": {
+    "dotenv": "^17.4.2",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
-    "express-ejs-layouts": "^2.5.1"
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.19.0",
+    "mongoose": "^9.8.0"
   }
 }

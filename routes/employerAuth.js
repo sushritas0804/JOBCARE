@@ -14,9 +14,11 @@ function generateOTP() {
     return crypto.randomInt(100000, 999999).toString();
 }
 
-router.get('/login', (req, res) => {
+router.get('/login', async (req, res) => {
     if (req.session && req.session.employer) {
-        return res.redirect('/employer/dashboard');
+        const exists = await Employer.findById(req.session.employer.id);
+        if (exists) return res.redirect('/employer/dashboard');
+        req.session.destroy();
     }
     res.render('employer/login', { title: 'JOBCARE - Employer Login', error: null });
 });

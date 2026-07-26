@@ -1,63 +1,94 @@
 <div class="emp-auth-page">
-    <div class="emp-onboard-card glass-strong">
-        <div class="emp-onboard-head">
-            <div class="logo-wrap">
-                <div class="logo-mark">JC</div>
-                <div class="logo-word">JOB<span>CARE</span></div>
+    <div class="emp-auth-container">
+        <div class="emp-card emp-card-dark">
+            <div class="emp-dark-content">
+                <div class="emp-logo">
+                    <div class="logo-mark">JC</div>
+                    <div class="logo-word">JOB<span>CARE</span></div>
+                </div>
+                <h1>Complete Your Profile</h1>
+                <p class="emp-tagline">Tell us a bit about yourself so we can connect you with the right talent.</p>
+                <div class="emp-features">
+                    <div class="emp-feature">
+                        <div class="emp-feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <div>
+                            <h3>Build Your Brand</h3>
+                            <p>Complete your profile to stand out and attract top candidates.</p>
+                        </div>
+                    </div>
+                    <div class="emp-feature">
+                        <div class="emp-feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                        </div>
+                        <div>
+                            <h3>Start Posting Jobs</h3>
+                            <p>Once your profile is set up, you can post jobs and find candidates instantly.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h2>Complete Your Profile</h2>
-            <p>Tell us a bit about yourself to get started.</p>
         </div>
 
-        <% if (error) { %>
-            <div class="emp-error"><%= error %></div>
-        <% } %>
-
-        <form action="/employer/onboarding" method="POST" id="onboardForm">
-            <div class="form-group">
-                <label>Full Name <span class="required">*</span></label>
-                <input type="text" name="name" placeholder="e.g. Priya Sharma" required value="<%= employer && employer.name ? employer.name : '' %>">
-            </div>
-
-            <div class="form-group">
-                <label>Company Name <span class="required">*</span></label>
-                <div class="emp-autocomplete-wrap">
-                    <input type="text" name="companyName" id="companyInput" placeholder="Type to search companies..." required autocomplete="off" value="<%= employer && employer.companyName ? employer.companyName : '' %>">
-                    <div class="emp-autocomplete-dropdown" id="companyDropdown"></div>
+        <div class="emp-card emp-card-light">
+            <div class="emp-light-content">
+                <div class="emp-auth-head">
+                    <h2>Complete Your Profile</h2>
+                    <p>Tell us a bit about yourself to get started.</p>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label>Are you working under a consultancy? <span class="required">*</span></label>
-                <div class="emp-radio-group">
-                    <label class="emp-radio">
-                        <input type="radio" name="isConsultancy" value="yes" <%= employer && employer.isConsultancy ? 'checked' : '' %>>
-                        <span class="emp-radio-mark"></span>
-                        <span>Yes</span>
-                    </label>
-                    <label class="emp-radio">
-                        <input type="radio" name="isConsultancy" value="no" <%= employer && !employer.isConsultancy ? 'checked' : '' %>>
-                        <span class="emp-radio-mark"></span>
-                        <span>No</span>
-                    </label>
-                </div>
-            </div>
+                <% if (error) { %>
+                    <div class="emp-error"><%= error %></div>
+                <% } %>
 
-            <div class="form-group">
-                <label>Work Email <span class="required">*</span></label>
-                <input type="email" name="workEmail" placeholder="you@company.com" required value="<%= employer && employer.workEmail ? employer.workEmail : '' %>">
-            </div>
+                <form action="/employer/onboarding" method="POST" id="onboardForm">
+                    <div class="form-group">
+                        <label>Full Name <span class="required">*</span></label>
+                        <input type="text" name="name" placeholder="e.g. Priya Sharma" required value="<%= employer && employer.name ? employer.name : '' %>">
+                    </div>
 
-            <div class="form-check">
-                <input type="checkbox" id="toc" name="agreedToToc" value="true" required>
-                <label for="toc">I agree to JOBCARE's <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a></label>
-            </div>
+                    <div class="form-group">
+                        <label>Company Name <span class="required">*</span></label>
+                        <div class="emp-autocomplete-wrap">
+                            <input type="text" name="companyName" id="companyInput" placeholder="Type to search companies..." required autocomplete="off" value="<%= employer && employer.companyName ? employer.companyName : '' %>">
+                            <div class="emp-autocomplete-dropdown" id="companyDropdown"></div>
+                        </div>
+                    </div>
 
-            <button type="submit" class="btn btn-primary emp-submit">
-                <span>Complete Profile</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </button>
-        </form>
+                    <div class="form-group">
+                        <label>Are you working under a consultancy? <span class="required">*</span></label>
+                        <div class="emp-radio-group">
+                            <label class="emp-radio">
+                                <input type="radio" name="isConsultancy" value="yes" <%= employer && employer.isConsultancy ? 'checked' : '' %>>
+                                <span class="emp-radio-mark"></span>
+                                <span>Yes</span>
+                            </label>
+                            <label class="emp-radio">
+                                <input type="radio" name="isConsultancy" value="no" <%= employer && !employer.isConsultancy ? 'checked' : '' %>>
+                                <span class="emp-radio-mark"></span>
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Work Email <span class="required">*</span></label>
+                        <input type="email" name="workEmail" placeholder="you@company.com" required value="<%= employer && employer.workEmail ? employer.workEmail : '' %>">
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" id="toc" name="agreedToToc" value="true" required>
+                        <label for="toc">I agree to JOBCARE's <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a></label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary emp-submit">
+                        <span>Complete Profile</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 

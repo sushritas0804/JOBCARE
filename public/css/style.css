@@ -1351,7 +1351,7 @@ body {
     .dash-stats-grid { grid-template-columns: repeat(2, 1fr); }
     .dash-usage-grid { grid-template-columns: 1fr; }
     .emp-auth-container { flex-direction: column; max-width: 100%; }
-    .emp-card-light { border-top: 1px solid var(--border); }
+    .emp-card-dark { border-top: 1px solid rgba(255,255,255,0.1); }
     .emp-card-dark, .emp-card-light { min-height: auto; }
 }
 @media (max-width: 768px) {

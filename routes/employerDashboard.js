@@ -147,9 +147,8 @@ router.get('/jobs/create', async (req, res) => {
         if (!employer) return res.redirect('/employer/logout');
 
         const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
-        if (draft && draft.currentStep > 1) {
-            return res.redirect('/employer/dashboard/jobs/create/step' + draft.currentStep);
-        }
+        const hasDraft = draft && draft.currentStep > 1;
+        const draftStep = hasDraft ? draft.currentStep : null;
 
         const companies = await Company.find({}).sort({ name: 1 });
         const job = draft ? draft.toObject() : { title: '', customTitle: '', role: '', customRole: '', jobType: '', workLocation: '', officeAddress: '', fieldAddress: '', payType: '', payMin: '', payMax: '', perks: [], customPerk: '', joiningFee: '', companyName: employer.companyName };
@@ -160,11 +159,25 @@ router.get('/jobs/create', async (req, res) => {
             companies: companies.map(c => c.name),
             job: job,
             currentStep: 1,
+            hasDraft: hasDraft,
+            draftStep: draftStep,
             error: null
         });
     } catch (err) {
         console.error('Job create GET error:', err);
         res.redirect('/employer/dashboard/jobs');
+    }
+});
+
+router.post('/jobs/create/draft/delete', async (req, res) => {
+    try {
+        const employer = await Employer.findById(req.session.employer.id);
+        if (!employer) return res.redirect('/employer/logout');
+        await Job.deleteMany({ employer: employer._id, status: 'draft' });
+        return res.redirect('/employer/dashboard/jobs/create');
+    } catch (err) {
+        console.error('Draft delete error:', err);
+        return res.redirect('/employer/dashboard/jobs/create');
     }
 });
 
@@ -188,6 +201,8 @@ router.post('/jobs/create/step1', async (req, res) => {
                 companies: companies.map(c => c.name),
                 job: req.body,
                 currentStep: 1,
+                hasDraft: false,
+                draftStep: null,
                 error: 'Please fill all required fields'
             });
         }
@@ -231,8 +246,87 @@ router.post('/jobs/create/step1', async (req, res) => {
             companies: companies.map(c => c.name),
             job: req.body,
             currentStep: 1,
+            hasDraft: false,
+            draftStep: null,
             error: 'Something went wrong. Please try again.'
         });
+    }
+});
+
+/* ─── Step 2: Candidate Requirements ─── */
+
+router.get('/jobs/create/step2', async (req, res) => {
+    try {
+        const employer = await Employer.findById(req.session.employer.id);
+        if (!employer) return res.redirect('/employer/logout');
+
+        const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
+        if (!draft || draft.currentStep < 2) return res.redirect('/employer/dashboard/jobs/create');
+
+        const hasDraft = draft.currentStep > 2;
+        const draftStep = hasDraft ? draft.currentStep : null;
+
+        res.locals.layout = 'layouts/wizard';
+        res.render('employer/job-post/step2', {
+            title: 'JOBCARE - Candidate Requirements',
+            employer: employer,
+            job: draft.toObject(),
+            currentStep: 2,
+            hasDraft: hasDraft,
+            draftStep: draftStep,
+            error: null
+        });
+    } catch (err) {
+        console.error('Job create step2 GET error:', err);
+        res.redirect('/employer/dashboard/jobs');
+    }
+});
+
+router.post('/jobs/create/step2', async (req, res) => {
+    try {
+        const employer = await Employer.findById(req.session.employer.id);
+        if (!employer) return res.redirect('/employer/logout');
+
+        const { minEducation, englishLevel, experienceLevel, additionalRequirements, jobDescription } = req.body;
+
+        if (!minEducation || !englishLevel || !experienceLevel) {
+            const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
+            const jobData = draft ? draft.toObject() : {};
+            jobData.minEducation = minEducation || '';
+            jobData.englishLevel = englishLevel || '';
+            jobData.experienceLevel = experienceLevel || '';
+            jobData.additionalRequirements = additionalRequirements ? additionalRequirements.split('|||').filter(Boolean) : [];
+            jobData.jobDescription = jobDescription || '';
+
+            return res.render('employer/job-post/step2', {
+                title: 'JOBCARE - Candidate Requirements',
+                employer: employer,
+                job: jobData,
+                currentStep: 2,
+                hasDraft: false,
+                draftStep: null,
+                error: 'Please fill all required fields'
+            });
+        }
+
+        const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
+        if (!draft) return res.redirect('/employer/dashboard/jobs/create');
+
+        const reqArray = additionalRequirements ? additionalRequirements.split('|||').filter(Boolean) : [];
+
+        await Job.findByIdAndUpdate(draft._id, {
+            minEducation,
+            englishLevel,
+            experienceLevel,
+            additionalRequirements: reqArray,
+            jobDescription: (jobDescription || '').trim(),
+            currentStep: 3
+        });
+
+        return res.redirect('/employer/dashboard/jobs/create/step3');
+    } catch (err) {
+        console.error('Job create step2 POST error:', err);
+        return res.redirect('/employer/dashboard/jobs/create/step2');
     }
 });
 

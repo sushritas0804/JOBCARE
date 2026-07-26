@@ -1568,6 +1568,261 @@ body {
     margin-bottom: 24px;
 }
 
+/* ─── Draft banner ─── */
+.wizard-draft-banner {
+    background: var(--accent-dim);
+    border: 1px solid var(--glass-border-mid);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.wizard-draft-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text);
+    flex: 1;
+    min-width: 200px;
+}
+
+.wizard-draft-info svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    stroke: var(--accent);
+}
+
+.wizard-draft-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.wizard-draft-btn {
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.wizard-draft-continue {
+    background: var(--accent);
+    color: #fff;
+}
+
+.wizard-draft-continue:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.wizard-draft-fresh {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.wizard-draft-fresh:hover {
+    border-color: var(--border-focus);
+    color: var(--text);
+}
+
+/* ─── Tooltip ─── */
+.wizard-tip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 700;
+    font-style: italic;
+    cursor: help;
+    position: relative;
+    flex-shrink: 0;
+    margin-left: 4px;
+    transition: background 0.2s;
+}
+
+.wizard-tip:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.wizard-tip::after {
+    content: attr(data-tip);
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+    padding: 8px 12px;
+    border-radius: 8px;
+    width: max-content;
+    max-width: 240px;
+    line-height: 1.4;
+    white-space: normal;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    z-index: 10;
+    pointer-events: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.wizard-tip::before {
+    content: '';
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-bottom-color: var(--accent);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s, visibility 0.2s;
+    z-index: 10;
+}
+
+.wizard-tip:hover::after,
+.wizard-tip:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ─── Section description ─── */
+.wizard-section-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: -12px 0 20px;
+    line-height: 1.5;
+}
+
+/* ─── Tags / chip input ─── */
+.wizard-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid var(--input-border);
+    border-radius: 10px;
+    background: var(--input-bg);
+    min-height: 48px;
+    align-items: center;
+    transition: border-color 0.2s;
+    cursor: text;
+}
+
+.wizard-tags:focus-within {
+    border-color: var(--border-focus);
+}
+
+.wizard-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    background: var(--accent-dim);
+    border: 1px solid var(--glass-border-mid);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1;
+}
+
+.wizard-tag-remove {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 15px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+
+.wizard-tag-remove:hover {
+    color: #dc2626;
+}
+
+.wizard-tag-input {
+    border: none !important;
+    background: transparent !important;
+    padding: 4px 0 !important;
+    font-size: 14px !important;
+    flex: 1;
+    min-width: 160px;
+    outline: none;
+}
+
+/* ─── Textarea ─── */
+.wizard-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--input-border);
+    border-radius: 12px;
+    background: var(--input-bg);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    resize: vertical;
+    min-height: 100px;
+    transition: border-color 0.2s, background 0.2s;
+    box-sizing: border-box;
+}
+
+.wizard-textarea:focus {
+    border-color: var(--border-focus);
+    background: var(--input-focus-bg);
+}
+
+.wizard-char-count {
+    text-align: right;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+}
+
+.wizard-char-count.wizard-char-warn {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+/* ─── Secondary button ─── */
+.wizard-actions .btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+.wizard-actions .btn-secondary:hover {
+    border-color: var(--border-focus);
+    color: var(--text);
+}
+
 /* ─── Sections ─── */
 .wizard-section {
     margin-bottom: 32px;

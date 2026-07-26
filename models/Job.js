@@ -24,10 +24,14 @@ const jobSchema = new mongoose.Schema({
     customPerk: { type: String, default: '' },
     joiningFee: { type: String, enum: ['yes', 'no', ''], default: '' },
 
-    /* Steps 2–5 — placeholders, populated later */
-    description: { type: String, default: '' },
-    requirements: { type: [String], default: [] },
-    benefits: { type: [String], default: [] },
+    /* Step 2 — Candidate Requirements */
+    minEducation: { type: String, enum: ['below-10th','10th','12th','diploma','iti','graduate','post-graduate',''], default: '' },
+    englishLevel: { type: String, enum: ['none','basic','good',''], default: '' },
+    experienceLevel: { type: String, enum: ['any','experienced','freshers',''], default: '' },
+    additionalRequirements: { type: [String], default: [] },
+    jobDescription: { type: String, default: '' },
+
+    /* Steps 3–5 — placeholders, populated later */
     screeningQuestions: { type: [String], default: [] },
     publishSettings: { type: String, default: '' },
 

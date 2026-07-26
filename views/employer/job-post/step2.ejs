@@ -1,0 +1,251 @@
+<div class="wizard-card">
+    <% if (error) { %>
+        <div class="wizard-error"><%= error %></div>
+    <% } %>
+
+    <% if (hasDraft) { %>
+        <div class="wizard-draft-banner">
+            <div class="wizard-draft-info">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>You have an unfinished job posting (step <%= draftStep %>). Continue where you left off, or start fresh?</span>
+            </div>
+            <div class="wizard-draft-actions">
+                <a href="/employer/dashboard/jobs/create/step<%= draftStep %>" class="wizard-draft-btn wizard-draft-continue">Continue draft</a>
+                <form action="/employer/dashboard/jobs/create/draft/delete" method="POST" style="display:inline;">
+                    <button type="submit" class="wizard-draft-btn wizard-draft-fresh">Start fresh</button>
+                </form>
+            </div>
+        </div>
+    <% } %>
+
+    <form action="/employer/dashboard/jobs/create/step2" method="POST" id="step2Form">
+
+        <!-- ═══ Section I: Basic Requirements ═══ -->
+        <div class="wizard-section">
+            <h2 class="wizard-section-title">Basic Requirements</h2>
+
+            <div class="form-group">
+                <label>Minimum Education <span class="required">*</span></label>
+                <div class="emp-radio-group">
+                    <label class="emp-radio">
+                        <input type="radio" name="minEducation" value="below-10th" <%= job.minEducation === 'below-10th' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Below 10th</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="minEducation" value="10th" <%= job.minEducation === '10th' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>10th Pass</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="minEducation" value="12th" <%= job.minEducation === '12th' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>12th Pass</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="minEducation" value="diploma" <%= job.minEducation === 'diploma' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Diploma</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="minEducation" value="iti" <%= job.minEducation === 'iti' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>ITI</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="minEducation" value="graduate" <%= job.minEducation === 'graduate' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Graduate</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="minEducation" value="post-graduate" <%= job.minEducation === 'post-graduate' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Post Graduate</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>English Level Required <span class="required">*</span></label>
+                <div class="emp-radio-group">
+                    <label class="emp-radio">
+                        <input type="radio" name="englishLevel" value="none" <%= job.englishLevel === 'none' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>No English</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="englishLevel" value="basic" <%= job.englishLevel === 'basic' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Basic English</span>
+                        <span class="wizard-tip" data-tip="Able to understand minimum English and write basic stuff">i</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="englishLevel" value="good" <%= job.englishLevel === 'good' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Good English</span>
+                        <span class="wizard-tip" data-tip="Able to speak and understand proper English confidently">i</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Total Experience Required <span class="required">*</span></label>
+                <div class="emp-radio-group">
+                    <label class="emp-radio">
+                        <input type="radio" name="experienceLevel" value="any" <%= job.experienceLevel === 'any' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Any</span>
+                        <span class="wizard-tip" data-tip="Both experienced and freshers can apply">i</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="experienceLevel" value="experienced" <%= job.experienceLevel === 'experienced' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Experienced</span>
+                        <span class="wizard-tip" data-tip="Minimum 2-3 years of experience required">i</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="experienceLevel" value="freshers" <%= job.experienceLevel === 'freshers' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Freshers Only</span>
+                        <span class="wizard-tip" data-tip="Candidates within 1 year of experience or no experience can apply">i</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Section II: Additional Requirements ═══ -->
+        <div class="wizard-section">
+            <h2 class="wizard-section-title">Additional Requirements</h2>
+            <p class="wizard-section-desc">Specify any extra requirements such as gender, age, industry, skills, assets, etc.</p>
+
+            <div class="form-group">
+                <div class="wizard-tags" id="reqTagsContainer">
+                    <% (job.additionalRequirements || []).forEach(function(req) { %>
+                        <span class="wizard-tag">
+                            <span><%= req %></span>
+                            <button type="button" class="wizard-tag-remove" data-value="<%= req.replace(/"/g, '&quot;') %>">&times;</button>
+                        </span>
+                    <% }); %>
+                    <input type="text" class="wizard-tag-input" id="reqTagInput" placeholder="Type a requirement and press Enter..." autocomplete="off">
+                </div>
+                <input type="hidden" name="additionalRequirements" id="reqTagsHidden" value="<%= (job.additionalRequirements || []).join('|||') %>">
+            </div>
+        </div>
+
+        <!-- ═══ Section III: Job Description ═══ -->
+        <div class="wizard-section">
+            <h2 class="wizard-section-title">Job Description</h2>
+            <p class="wizard-section-desc">Provide a brief description of the role and expectations (optional, max 150 characters).</p>
+
+            <div class="form-group">
+                <textarea name="jobDescription" id="jobDescription" class="wizard-textarea" maxlength="150" rows="4" placeholder="Brief description of the role and expectations..."><%= job.jobDescription || '' %></textarea>
+                <div class="wizard-char-count"><span id="charCount"><%= (job.jobDescription || '').length %></span> / 150</div>
+            </div>
+        </div>
+
+        <div class="wizard-actions">
+            <a href="/employer/dashboard/jobs/create" class="btn btn-secondary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <span>Back</span>
+            </a>
+            <button type="submit" class="btn btn-primary" id="continueBtn" disabled>
+                <span>Continue</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+(function() {
+    var tags = <%- JSON.stringify(job.additionalRequirements || []) %>;
+    var tagInput = document.getElementById('reqTagInput');
+    var tagsContainer = document.getElementById('reqTagsContainer');
+    var hiddenInput = document.getElementById('reqTagsHidden');
+    var charCount = document.getElementById('charCount');
+    var jobDesc = document.getElementById('jobDescription');
+    var continueBtn = document.getElementById('continueBtn');
+
+    /* ─── Tag management ─── */
+    function syncHidden() {
+        hiddenInput.value = tags.join('|||');
+    }
+
+    function renderTags() {
+        var existing = tagsContainer.querySelectorAll('.wizard-tag');
+        existing.forEach(function(t) { t.remove(); });
+        tags.forEach(function(t, i) {
+            var el = document.createElement('span');
+            el.className = 'wizard-tag';
+            el.innerHTML = '<span>' + t.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</span><button type="button" class="wizard-tag-remove" data-index="' + i + '">&times;</button>';
+            tagsContainer.insertBefore(el, tagInput);
+        });
+        syncHidden();
+    }
+
+    function addTag(value) {
+        var v = value.trim();
+        if (v && tags.indexOf(v) === -1) {
+            tags.push(v);
+            renderTags();
+            validateForm();
+        }
+        tagInput.value = '';
+    }
+
+    tagInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ',') {
+            e.preventDefault();
+            addTag(tagInput.value);
+        }
+        if (e.key === 'Backspace' && tagInput.value === '' && tags.length > 0) {
+            tags.pop();
+            renderTags();
+            validateForm();
+        }
+    });
+
+    tagsContainer.addEventListener('click', function(e) {
+        var btn = e.target.closest('.wizard-tag-remove');
+        if (!btn) return;
+        var idx = parseInt(btn.dataset.index);
+        if (!isNaN(idx)) {
+            tags.splice(idx, 1);
+            renderTags();
+            validateForm();
+        }
+    });
+
+    /* ─── Character counter ─── */
+    jobDesc.addEventListener('input', function() {
+        var len = jobDesc.value.length;
+        charCount.textContent = len;
+        var countEl = charCount.parentElement;
+        if (len >= 140) {
+            countEl.classList.add('wizard-char-warn');
+        } else {
+            countEl.classList.remove('wizard-char-warn');
+        }
+    });
+
+    /* ─── Validation ─── */
+    function getRadio(name) {
+        var el = document.querySelector('[name="' + name + '"]:checked');
+        return el ? el.value : '';
+    }
+
+    function validateForm() {
+        var valid = true;
+        if (!getRadio('minEducation')) valid = false;
+        if (!getRadio('englishLevel')) valid = false;
+        if (!getRadio('experienceLevel')) valid = false;
+        continueBtn.disabled = !valid;
+    }
+
+    document.querySelectorAll('#step2Form input[type="radio"]').forEach(function(el) {
+        el.addEventListener('change', validateForm);
+    });
+
+    validateForm();
+})();
+</script>

@@ -3,6 +3,21 @@
         <div class="wizard-error"><%= error %></div>
     <% } %>
 
+    <% if (hasDraft) { %>
+        <div class="wizard-draft-banner">
+            <div class="wizard-draft-info">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>You have an unfinished job posting (step <%= draftStep %>). Continue where you left off, or start fresh?</span>
+            </div>
+            <div class="wizard-draft-actions">
+                <a href="/employer/dashboard/jobs/create/step<%= draftStep %>" class="wizard-draft-btn wizard-draft-continue">Continue draft</a>
+                <form action="/employer/dashboard/jobs/create/draft/delete" method="POST" style="display:inline;">
+                    <button type="submit" class="wizard-draft-btn wizard-draft-fresh">Start fresh</button>
+                </form>
+            </div>
+        </div>
+    <% } %>
+
     <form action="/employer/dashboard/jobs/create/step1" method="POST" id="step1Form">
 
         <!-- ═══ Section I: Job Details ═══ -->

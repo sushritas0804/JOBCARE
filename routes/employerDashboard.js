@@ -287,7 +287,8 @@ router.post('/jobs/create/step2', async (req, res) => {
         const employer = await Employer.findById(req.session.employer.id);
         if (!employer) return res.redirect('/employer/logout');
 
-        const { minEducation, englishLevel, experienceLevel, additionalRequirements, jobDescription } = req.body;
+        const { minEducation, englishLevel, experienceLevel, additionalRequirements, jobDescription,
+                preferredGender, preferredAgeMin, preferredAgeMax, preferredDegree, preferredIndustry } = req.body;
 
         if (!minEducation || !englishLevel || !experienceLevel) {
             const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
@@ -297,6 +298,11 @@ router.post('/jobs/create/step2', async (req, res) => {
             jobData.experienceLevel = experienceLevel || '';
             jobData.additionalRequirements = additionalRequirements ? additionalRequirements.split('|||').filter(Boolean) : [];
             jobData.jobDescription = jobDescription || '';
+            jobData.preferredGender = preferredGender || '';
+            jobData.preferredAgeMin = preferredAgeMin ? parseInt(preferredAgeMin) : 0;
+            jobData.preferredAgeMax = preferredAgeMax ? parseInt(preferredAgeMax) : 0;
+            jobData.preferredDegree = preferredDegree || '';
+            jobData.preferredIndustry = preferredIndustry || '';
 
             return res.render('employer/job-post/step2', {
                 title: 'JOBCARE - Candidate Requirements',
@@ -320,6 +326,11 @@ router.post('/jobs/create/step2', async (req, res) => {
             experienceLevel,
             additionalRequirements: reqArray,
             jobDescription: (jobDescription || '').trim(),
+            preferredGender: preferredGender || '',
+            preferredAgeMin: preferredAgeMin ? parseInt(preferredAgeMin) : 0,
+            preferredAgeMax: preferredAgeMax ? parseInt(preferredAgeMax) : 0,
+            preferredDegree: (preferredDegree || '').trim(),
+            preferredIndustry: (preferredIndustry || '').trim(),
             currentStep: 3
         });
 
@@ -438,6 +449,30 @@ router.post('/jobs/create/step3', async (req, res) => {
     } catch (err) {
         console.error('Job create step3 POST error:', err);
         return res.redirect('/employer/dashboard/jobs/create/step3');
+    }
+});
+
+/* ─── Step 4: Job Preview ─── */
+
+router.get('/jobs/create/step4', async (req, res) => {
+    try {
+        const employer = await Employer.findById(req.session.employer.id);
+        if (!employer) return res.redirect('/employer/logout');
+
+        const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
+        if (!draft || draft.currentStep < 4) return res.redirect('/employer/dashboard/jobs/create');
+
+        res.locals.layout = 'layouts/wizard';
+        res.render('employer/job-post/step4', {
+            title: 'JOBCARE - Job Preview',
+            employer: employer,
+            job: draft.toObject(),
+            currentStep: 4,
+            error: null
+        });
+    } catch (err) {
+        console.error('Job create step4 GET error:', err);
+        res.redirect('/employer/dashboard/jobs');
     }
 });
 

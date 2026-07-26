@@ -116,7 +116,87 @@
         <!-- ═══ Section II: Additional Requirements ═══ -->
         <div class="wizard-section">
             <h2 class="wizard-section-title">Additional Requirements</h2>
-            <p class="wizard-section-desc">Specify any extra requirements such as gender, age, industry, skills, assets, etc.</p>
+            <p class="wizard-section-desc">Optionally specify preferred candidate requirements. These help promote your job to the right candidates.</p>
+
+            <h3 class="wizard-section-subhead">Preferred Requirements</h3>
+
+            <div class="pref-add-chips" id="prefChips">
+                <button type="button" class="pref-add-chip" data-pref="gender" id="chipGender">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <span>+ Gender</span>
+                </button>
+                <button type="button" class="pref-add-chip" data-pref="age" id="chipAge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                    <span>+ Age</span>
+                </button>
+                <button type="button" class="pref-add-chip" data-pref="degree" id="chipDegree">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                    <span>+ Degree</span>
+                </button>
+                <button type="button" class="pref-add-chip" data-pref="industry" id="chipIndustry">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                    <span>+ Industry</span>
+                </button>
+            </div>
+
+            <!-- Gender field -->
+            <div class="pref-field" id="prefGenderField" style="display: none;">
+                <div class="pref-field-head">
+                    <span>Gender</span>
+                    <button type="button" class="pref-field-remove" data-pref="gender">&times;</button>
+                </div>
+                <div class="emp-radio-group">
+                    <label class="emp-radio">
+                        <input type="radio" name="preferredGender" value="male" <%= job.preferredGender === 'male' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Male only</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="preferredGender" value="female" <%= job.preferredGender === 'female' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Female only</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="preferredGender" value="both" <%= job.preferredGender === 'both' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Both allowed</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Age field -->
+            <div class="pref-field" id="prefAgeField" style="display: none;">
+                <div class="pref-field-head">
+                    <span>Age Range</span>
+                    <button type="button" class="pref-field-remove" data-pref="age">&times;</button>
+                </div>
+                <div class="pref-age-row">
+                    <input type="number" name="preferredAgeMin" class="pref-age-input" min="18" max="60" placeholder="18" value="<%= job.preferredAgeMin || '' %>">
+                    <span class="pref-age-sep">to</span>
+                    <input type="number" name="preferredAgeMax" class="pref-age-input" min="18" max="60" placeholder="60" value="<%= job.preferredAgeMax || '' %>">
+                    <span class="pref-age-suffix">yrs</span>
+                </div>
+            </div>
+
+            <!-- Degree field -->
+            <div class="pref-field" id="prefDegreeField" style="display: none;">
+                <div class="pref-field-head">
+                    <span>Degree / Specialization</span>
+                    <button type="button" class="pref-field-remove" data-pref="degree">&times;</button>
+                </div>
+                <input type="text" name="preferredDegree" class="pref-text-input" placeholder="e.g. B.Com, MBA, BCA" value="<%= job.preferredDegree || '' %>">
+            </div>
+
+            <!-- Industry field -->
+            <div class="pref-field" id="prefIndustryField" style="display: none;">
+                <div class="pref-field-head">
+                    <span>Industry</span>
+                    <button type="button" class="pref-field-remove" data-pref="industry">&times;</button>
+                </div>
+                <input type="text" name="preferredIndustry" class="pref-text-input" placeholder="e.g. IT, Finance, Healthcare" value="<%= job.preferredIndustry || '' %>">
+            </div>
+
+            <h3 class="wizard-section-subhead">Other Requirements</h3>
 
             <div class="form-group">
                 <div class="wizard-tags" id="reqTagsContainer">
@@ -215,6 +295,62 @@
             validateForm();
         }
     });
+
+    /* ─── Preference chips ─── */
+    var prefFields = { gender: 'prefGenderField', age: 'prefAgeField', degree: 'prefDegreeField', industry: 'prefIndustryField' };
+    var prefChips = document.querySelectorAll('.pref-add-chip');
+
+    function showPrefField(pref) {
+        var fieldId = prefFields[pref];
+        var field = document.getElementById(fieldId);
+        var chip = document.querySelector('.pref-add-chip[data-pref="' + pref + '"]');
+        if (field) field.style.display = 'block';
+        if (chip) chip.style.display = 'none';
+    }
+
+    function hidePrefField(pref) {
+        var fieldId = prefFields[pref];
+        var field = document.getElementById(fieldId);
+        var chip = document.querySelector('.pref-add-chip[data-pref="' + pref + '"]');
+        if (field) field.style.display = 'none';
+        if (chip) chip.style.display = 'inline-flex';
+        if (pref === 'gender') {
+            var radios = document.querySelectorAll('[name="preferredGender"]');
+            radios.forEach(function(r) { r.checked = false; });
+        }
+        if (pref === 'age') {
+            var minInput = document.querySelector('[name="preferredAgeMin"]');
+            var maxInput = document.querySelector('[name="preferredAgeMax"]');
+            if (minInput) minInput.value = '';
+            if (maxInput) maxInput.value = '';
+        }
+        if (pref === 'degree') {
+            var degInput = document.querySelector('[name="preferredDegree"]');
+            if (degInput) degInput.value = '';
+        }
+        if (pref === 'industry') {
+            var indInput = document.querySelector('[name="preferredIndustry"]');
+            if (indInput) indInput.value = '';
+        }
+    }
+
+    prefChips.forEach(function(chip) {
+        chip.addEventListener('click', function() {
+            showPrefField(chip.dataset.pref);
+        });
+    });
+
+    document.querySelectorAll('.pref-field-remove').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            hidePrefField(btn.dataset.pref);
+        });
+    });
+
+    /* Show fields that already have data */
+    <% if (job.preferredGender) { %> showPrefField('gender'); <% } %>
+    <% if (job.preferredAgeMin || job.preferredAgeMax) { %> showPrefField('age'); <% } %>
+    <% if (job.preferredDegree) { %> showPrefField('degree'); <% } %>
+    <% if (job.preferredIndustry) { %> showPrefField('industry'); <% } %>
 
     /* ─── Character counter ─── */
     jobDesc.addEventListener('input', function() {

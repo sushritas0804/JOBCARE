@@ -2092,3 +2092,278 @@ body {
     opacity: 0.4;
     cursor: not-allowed;
 }
+
+/* ─── Section sub-headings ─── */
+.wizard-section-subhead {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 12px;
+    padding-top: 4px;
+}
+
+/* ─── Preference chips ─── */
+.pref-add-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.pref-add-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 7px 14px;
+    border: 1px solid var(--input-border);
+    border-radius: 20px;
+    background: var(--input-bg);
+    color: var(--text-secondary);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pref-add-chip:hover {
+    border-color: var(--border-focus);
+    color: var(--accent);
+    background: #fff;
+}
+
+.pref-add-chip svg {
+    flex-shrink: 0;
+}
+
+/* ─── Preference expandable fields ─── */
+.pref-field {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.pref-field-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.pref-field-remove {
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--text-secondary);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+    padding: 0;
+}
+
+.pref-field-remove:hover {
+    border-color: #c0392b;
+    color: #c0392b;
+    background: #fff5f5;
+}
+
+/* ─── Age row ─── */
+.pref-age-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pref-age-input {
+    width: 90px;
+    padding: 10px 14px;
+    border: 1px solid var(--input-border);
+    border-radius: 10px;
+    background: var(--input-bg);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.pref-age-input:focus {
+    border-color: var(--border-focus);
+}
+
+.pref-age-sep {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.pref-age-suffix {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* ─── Preference text input ─── */
+.pref-text-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--input-border);
+    border-radius: 10px;
+    background: var(--input-bg);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.pref-text-input:focus {
+    border-color: var(--border-focus);
+}
+
+/* ═══════════════════════════════════════════════
+   Step 4 — Job Preview
+   ═══════════════════════════════════════════════ */
+
+.preview-section {
+    border-left: 3px solid var(--accent);
+    padding: 0 0 0 20px;
+    margin-bottom: 32px;
+}
+
+.preview-section:last-child {
+    margin-bottom: 0;
+}
+
+.preview-section-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.preview-section-head .preview-section-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.preview-section-head .preview-section-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.preview-section-head h2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    flex: 1;
+}
+
+.preview-edit-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 4px 10px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.preview-edit-link:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.preview-edit-link svg {
+    width: 13px;
+    height: 13px;
+}
+
+/* ─── Preview rows ─── */
+.preview-rows {
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-row {
+    display: flex;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+}
+
+.preview-row:last-child {
+    border-bottom: none;
+}
+
+.preview-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    min-width: 180px;
+    flex-shrink: 0;
+}
+
+.preview-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* ─── Preview sub-sections ─── */
+.preview-subhead {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0 10px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+}
+
+.preview-subhead:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
+.preview-subhead svg {
+    width: 16px;
+    height: 16px;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.preview-subhead span {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.preview-subhead-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 0 0 8px 24px;
+    font-style: italic;
+}

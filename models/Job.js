@@ -31,6 +31,13 @@ const jobSchema = new mongoose.Schema({
     additionalRequirements: { type: [String], default: [] },
     jobDescription: { type: String, default: '' },
 
+    /* Step 2 — Preferred Requirements */
+    preferredGender: { type: String, enum: ['male', 'female', 'both', ''], default: '' },
+    preferredAgeMin: { type: Number, default: 0 },
+    preferredAgeMax: { type: Number, default: 0 },
+    preferredDegree: { type: String, default: '' },
+    preferredIndustry: { type: String, default: '' },
+
     /* Step 3 — Interviewer Information */
     isWalkIn: { type: String, enum: ['yes', 'no', ''], default: '' },
     companyAddress: { type: String, default: '' },

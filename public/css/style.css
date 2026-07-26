@@ -931,29 +931,27 @@ body {
 .emp-auth-page {
     position: relative; z-index: 1;
     min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    padding: 40px 24px;
+    display: flex;
+    padding: 0;
 }
 .emp-auth-container {
     display: flex; gap: 0;
-    width: 100%; max-width: 860px;
-    min-height: 440px;
-    border-radius: 18px;
+    width: 100%; min-height: 100vh;
+    border-radius: 0;
     overflow: hidden;
-    box-shadow: 0 16px 64px rgba(33,40,66,0.12);
 }
 .emp-card { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 
 .emp-card-dark {
     background: #212842;
-    padding: 48px 40px;
+    padding: 60px 56px;
     color: #fff;
+    min-height: 100vh;
 }
 .emp-card-light {
     background: var(--bg);
-    padding: 48px 40px;
-    border: 1px solid var(--border);
-    border-left: none;
+    padding: 60px 56px;
+    min-height: 100vh;
 }
 
 .emp-dark-content { display: flex; flex-direction: column; }
@@ -962,24 +960,24 @@ body {
 .emp-logo .logo-word { font-size: 19px; font-weight: 700; letter-spacing: -0.5px; color: #fff; }
 .emp-logo .logo-word span { color: rgba(255,255,255,0.6); }
 
-.emp-card-dark h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.2; }
-.emp-tagline { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 32px; }
+.emp-card-dark h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; line-height: 1.2; }
+.emp-tagline { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 36px; }
 
 .emp-features { display: flex; flex-direction: column; gap: 20px; }
 .emp-feature { display: flex; align-items: flex-start; gap: 12px; }
 .emp-feature-icon {
-    width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
     background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
     display: flex; align-items: center; justify-content: center;
 }
-.emp-feature-icon svg { width: 16px; height: 16px; color: rgba(255,255,255,0.9); }
-.emp-feature h3 { font-size: 13px; font-weight: 600; margin-bottom: 2px; color: #fff; }
-.emp-feature p { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+.emp-feature-icon svg { width: 18px; height: 18px; color: rgba(255,255,255,0.9); }
+.emp-feature h3 { font-size: 15px; font-weight: 600; margin-bottom: 3px; color: #fff; }
+.emp-feature p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
 
 .emp-light-content { display: flex; flex-direction: column; justify-content: center; }
 .emp-auth-head { margin-bottom: 24px; }
-.emp-auth-head h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
-.emp-auth-head p { font-size: 13.5px; color: var(--text-secondary); }
+.emp-auth-head h2 { font-size: 30px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 6px; }
+.emp-auth-head p { font-size: 15px; color: var(--text-secondary); }
 
 .emp-error {
     padding: 10px 14px; border-radius: 8px;
@@ -1004,7 +1002,7 @@ body {
     flex: 1; padding: 11px 14px;
     border: none; background: none; outline: none;
     color: var(--text); font-family: 'Times New Roman', Times, serif;
-    font-size: 14px;
+    font-size: 16px;
 }
 .emp-mobile-group input::placeholder { color: var(--text-muted); }
 
@@ -1352,8 +1350,9 @@ body {
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
     .dash-stats-grid { grid-template-columns: repeat(2, 1fr); }
     .dash-usage-grid { grid-template-columns: 1fr; }
-    .emp-auth-container { flex-direction: column; max-width: 440px; }
-    .emp-card-light { border-left: 1px solid var(--border); border-top: none; }
+    .emp-auth-container { flex-direction: column; max-width: 100%; }
+    .emp-card-light { border-top: 1px solid var(--border); }
+    .emp-card-dark, .emp-card-light { min-height: auto; }
 }
 @media (max-width: 768px) {
     .navbar { padding: 0 20px; }
@@ -1382,8 +1381,10 @@ body {
     .dash-stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .dash-stat-card { padding: 18px 14px; }
 
-    .emp-card-dark { padding: 32px 24px; }
-    .emp-card-light { padding: 32px 24px; }
+    .emp-card-dark { padding: 40px 28px; }
+    .emp-card-light { padding: 40px 28px; }
+    .emp-card-dark h1 { font-size: 26px; }
+    .emp-auth-head h2 { font-size: 26px; }
     .emp-otp-inputs { gap: 6px; }
     .otp-digit { width: 42px; height: 50px; font-size: 20px; }
 }

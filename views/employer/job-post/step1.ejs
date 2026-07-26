@@ -1,0 +1,387 @@
+<div class="wizard-card">
+    <% if (error) { %>
+        <div class="wizard-error"><%= error %></div>
+    <% } %>
+
+    <form action="/employer/dashboard/jobs/create/step1" method="POST" id="step1Form">
+
+        <!-- ═══ Section I: Job Details ═══ -->
+        <div class="wizard-section">
+            <h2 class="wizard-section-title">Job Details</h2>
+
+            <div class="form-group">
+                <label>Company you're hiring for <span class="required">*</span></label>
+                <div class="emp-autocomplete-wrap">
+                    <input type="text" name="companyName" id="companyInput" placeholder="Type to search companies..." required autocomplete="off" value="<%= employer.companyName %>">
+                    <div class="emp-autocomplete-dropdown" id="companyDropdown"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Job Title <span class="required">*</span></label>
+                <select name="title" id="jobTitle" required>
+                    <option value="">Select a job title...</option>
+                    <option value="Software Engineer" <%= job.title === 'Software Engineer' ? 'selected' : '' %>>Software Engineer</option>
+                    <option value="Marketing Manager" <%= job.title === 'Marketing Manager' ? 'selected' : '' %>>Marketing Manager</option>
+                    <option value="Sales Executive" <%= job.title === 'Sales Executive' ? 'selected' : '' %>>Sales Executive</option>
+                    <option value="Accountant" <%= job.title === 'Accountant' ? 'selected' : '' %>>Accountant</option>
+                    <option value="HR Manager" <%= job.title === 'HR Manager' ? 'selected' : '' %>>HR Manager</option>
+                    <option value="Data Analyst" <%= job.title === 'Data Analyst' ? 'selected' : '' %>>Data Analyst</option>
+                    <option value="Operations Manager" <%= job.title === 'Operations Manager' ? 'selected' : '' %>>Operations Manager</option>
+                    <option value="Project Manager" <%= job.title === 'Project Manager' ? 'selected' : '' %>>Project Manager</option>
+                    <option value="Business Analyst" <%= job.title === 'Business Analyst' ? 'selected' : '' %>>Business Analyst</option>
+                    <option value="Customer Support" <%= job.title === 'Customer Support' ? 'selected' : '' %>>Customer Support</option>
+                    <option value="Other" <%= job.title === 'Other' ? 'selected' : '' %>>Other</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="customTitleGroup" style="display: <%= job.title === 'Other' ? 'block' : 'none' %>;">
+                <label>Enter Job Title <span class="required">*</span></label>
+                <input type="text" name="customTitle" id="customTitle" placeholder="e.g. Growth Hacker" value="<%= job.customTitle || '' %>">
+            </div>
+
+            <div class="form-group" id="roleGroup" style="display: none;">
+                <label>Job Role <span class="required">*</span></label>
+                <select name="role" id="jobRole">
+                    <option value="">Select a role...</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="customRoleGroup" style="display: none;">
+                <label>Enter Job Role <span class="required">*</span></label>
+                <input type="text" name="customRole" id="customRole" placeholder="e.g. React Specialist" value="<%= job.customRole || '' %>">
+            </div>
+
+            <div class="form-group">
+                <label>Job Type <span class="required">*</span></label>
+                <div class="emp-radio-group">
+                    <label class="emp-radio">
+                        <input type="radio" name="jobType" value="full-time" <%= job.jobType === 'full-time' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Full time</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="jobType" value="part-time" <%= job.jobType === 'part-time' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Part time</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="jobType" value="both" <%= job.jobType === 'both' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Both (Full time and Part time)</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Section II: Location ═══ -->
+        <div class="wizard-section">
+            <h2 class="wizard-section-title">Location</h2>
+
+            <div class="form-group">
+                <label>Work Location <span class="required">*</span></label>
+                <div class="emp-radio-group">
+                    <label class="emp-radio">
+                        <input type="radio" name="workLocation" value="office" id="locOffice" <%= job.workLocation === 'office' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Work from office</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="workLocation" value="remote" id="locRemote" <%= job.workLocation === 'remote' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Work from home</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="workLocation" value="field" id="locField" <%= job.workLocation === 'field' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Field job</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group" id="officeAddressGroup" style="display: <%= job.workLocation === 'office' ? 'block' : 'none' %>;">
+                <label>Office Address <span class="required">*</span></label>
+                <input type="text" name="officeAddress" id="officeAddress" placeholder="Full office address" value="<%= job.officeAddress || employer.companyAddress %>">
+            </div>
+
+            <div class="form-group" id="fieldAddressGroup" style="display: <%= job.workLocation === 'field' ? 'block' : 'none' %>;">
+                <label>Field Address <span class="required">*</span></label>
+                <input type="text" name="fieldAddress" id="fieldAddress" placeholder="Where will the candidate be based?" value="<%= job.fieldAddress || '' %>">
+            </div>
+        </div>
+
+        <!-- ═══ Section III: Compensation ═══ -->
+        <div class="wizard-section">
+            <h2 class="wizard-section-title">Compensation</h2>
+
+            <div class="form-group">
+                <label>What is the pay type?</label>
+                <div class="emp-radio-group">
+                    <label class="emp-radio">
+                        <input type="radio" name="payType" value="fixed" id="payFixed" <%= job.payType === 'fixed' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Fixed only</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="payType" value="fixed-incentive" id="payFixedIncentive" <%= job.payType === 'fixed-incentive' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Fixed + Incentive</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="payType" value="incentive" id="payIncentive" <%= job.payType === 'incentive' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Incentive only</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-row" id="salaryFields" style="display: <%= job.payType ? 'grid' : 'none' %>;">
+                <div class="form-group">
+                    <label>Minimum (₹ per month)</label>
+                    <input type="number" name="payMin" id="payMin" placeholder="e.g. 15000" min="0" value="<%= job.payMin || '' %>">
+                </div>
+                <div class="form-group">
+                    <label>Maximum (₹ per month)</label>
+                    <input type="number" name="payMax" id="payMax" placeholder="e.g. 25000" min="0" value="<%= job.payMax || '' %>">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Do you offer any additional perks?</label>
+                <div class="wizard-checks">
+                    <label class="wizard-check">
+                        <input type="checkbox" name="perks" value="Flexible working hours" <%= (job.perks || []).includes('Flexible working hours') ? 'checked' : '' %>>
+                        <span>Flexible working hours</span>
+                    </label>
+                    <label class="wizard-check">
+                        <input type="checkbox" name="perks" value="Weekly payout" <%= (job.perks || []).includes('Weekly payout') ? 'checked' : '' %>>
+                        <span>Weekly payout</span>
+                    </label>
+                    <label class="wizard-check">
+                        <input type="checkbox" name="perks" value="Overtime pay" <%= (job.perks || []).includes('Overtime pay') ? 'checked' : '' %>>
+                        <span>Overtime pay</span>
+                    </label>
+                    <label class="wizard-check">
+                        <input type="checkbox" name="perks" value="Joining bonus" <%= (job.perks || []).includes('Joining bonus') ? 'checked' : '' %>>
+                        <span>Joining bonus</span>
+                    </label>
+                    <label class="wizard-check">
+                        <input type="checkbox" name="perks" value="Paid leave" <%= (job.perks || []).includes('Paid leave') ? 'checked' : '' %>>
+                        <span>Paid leave</span>
+                    </label>
+                    <label class="wizard-check">
+                        <input type="checkbox" name="perks" value="Health insurance" <%= (job.perks || []).includes('Health insurance') ? 'checked' : '' %>>
+                        <span>Health insurance</span>
+                    </label>
+                    <label class="wizard-check">
+                        <input type="checkbox" name="perks" value="Other" id="perkOther" <%= (job.perks || []).includes('Other') ? 'checked' : '' %>>
+                        <span>Other</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group" id="customPerkGroup" style="display: <%= (job.perks || []).includes('Other') ? 'block' : 'none' %>;">
+                <label>Specify perk</label>
+                <input type="text" name="customPerk" id="customPerk" placeholder="e.g. free meals, transport allowance" value="<%= job.customPerk || '' %>">
+            </div>
+
+            <div class="form-group">
+                <label>Is there any joining fee or deposit required by the candidate? <span class="required">*</span></label>
+                <div class="emp-radio-group">
+                    <label class="emp-radio">
+                        <input type="radio" name="joiningFee" value="yes" <%= job.joiningFee === 'yes' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Yes</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="joiningFee" value="no" <%= job.joiningFee === 'no' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="wizard-actions">
+            <button type="submit" class="btn btn-primary" id="continueBtn" disabled>
+                <span>Continue</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+(function() {
+    /* ─── Title → Role map ─── */
+    var titleRoleMap = {
+        'Software Engineer': ['Frontend', 'Backend', 'Full Stack', 'DevOps', 'Mobile', 'QA/Testing', 'Cloud/Infrastructure', 'Data Engineering'],
+        'Marketing Manager': ['Digital Marketing', 'Content Marketing', 'Brand Management', 'Performance Marketing', 'Social Media'],
+        'Sales Executive': ['Business Development', 'Inside Sales', 'Field Sales', 'Account Management', 'Pre-Sales'],
+        'Accountant': ['Financial Accounting', 'Taxation', 'Auditing', 'Cost Accounting', 'Accounts Payable/Receivable'],
+        'HR Manager': ['Recruitment', 'Learning & Development', 'Employee Relations', 'Compensation & Benefits', 'HR Operations'],
+        'Data Analyst': ['Business Intelligence', 'Data Science', 'Machine Learning', 'Reporting & Analytics'],
+        'Operations Manager': ['Supply Chain', 'Logistics', 'Process Improvement', 'Project Management', 'Quality Management'],
+        'Project Manager': ['Agile/Scrum', 'IT Project Management', 'Construction', 'Product Management'],
+        'Business Analyst': ['Requirements Analysis', 'Process Analysis', 'Data Analysis', 'Systems Analysis'],
+        'Customer Support': ['Voice Support', 'Chat Support', 'Technical Support', 'Client Relationship']
+    };
+
+    var companies = <%- JSON.stringify(companies) %>;
+    var job = <%- JSON.stringify(job) %>;
+    if (!job.perks) job.perks = [];
+    /* ─── Elements ─── */
+    var companyInput   = document.getElementById('companyInput');
+    var companyDrop    = document.getElementById('companyDropdown');
+    var jobTitle       = document.getElementById('jobTitle');
+    var customTitleGrp = document.getElementById('customTitleGroup');
+    var roleGroup      = document.getElementById('roleGroup');
+    var customRoleGrp  = document.getElementById('customRoleGroup');
+    var jobRole        = document.getElementById('jobRole');
+    var locOffice      = document.getElementById('locOffice');
+    var locField       = document.getElementById('locField');
+    var officeAddrGrp  = document.getElementById('officeAddressGroup');
+    var fieldAddrGrp   = document.getElementById('fieldAddressGroup');
+    var payFixed       = document.getElementById('payFixed');
+    var payFixedIncentive = document.getElementById('payFixedIncentive');
+    var payIncentive   = document.getElementById('payIncentive');
+    var salaryFields   = document.getElementById('salaryFields');
+    var perkOther      = document.getElementById('perkOther');
+    var customPerkGrp  = document.getElementById('customPerkGroup');
+    var continueBtn    = document.getElementById('continueBtn');
+
+    /* ─── Company autocomplete ─── */
+    companyInput.addEventListener('input', function() {
+        var val = companyInput.value.trim().toLowerCase();
+        if (val.length < 1) { companyDrop.style.display = 'none'; return; }
+        var matches = companies.filter(function(c) {
+            return c.toLowerCase().indexOf(val) !== -1;
+        }).slice(0, 6);
+        var html = '';
+        matches.forEach(function(c) {
+            html += '<div class="emp-ac-option" data-value="' + c.replace(/"/g, '&quot;') + '">' + c + '</div>';
+        });
+        if (matches.indexOf(companyInput.value.trim()) === -1 && companyInput.value.trim().length > 0) {
+            html += '<div class="emp-ac-option emp-ac-new" data-value="' + companyInput.value.trim().replace(/"/g, '&quot;') + '">Add "' + companyInput.value.trim() + '" as new company</div>';
+        }
+        if (html) { companyDrop.innerHTML = html; companyDrop.style.display = 'block'; }
+        else { companyDrop.style.display = 'none'; }
+        validateForm();
+    });
+    companyDrop.addEventListener('click', function(e) {
+        var opt = e.target.closest('.emp-ac-option');
+        if (!opt) return;
+        companyInput.value = opt.dataset.value;
+        companyDrop.style.display = 'none';
+        validateForm();
+    });
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.emp-autocomplete-wrap')) companyDrop.style.display = 'none';
+    });
+
+    /* ─── Job Title → Role ─── */
+    function loadRoles(title) {
+        var roles = titleRoleMap[title];
+        if (roles) {
+            var html = '<option value="">Select a role...</option>';
+            roles.forEach(function(r) {
+                var sel = (job.role === r) ? ' selected' : '';
+                html += '<option value="' + r + '"' + sel + '>' + r + '</option>';
+            });
+            html += '<option value="Other"' + (job.role === 'Other' ? ' selected' : '') + '>Other</option>';
+            jobRole.innerHTML = html;
+            roleGroup.style.display = 'block';
+            if (job.role === 'Other') customRoleGrp.style.display = 'block';
+        } else {
+            roleGroup.style.display = 'none';
+            customRoleGrp.style.display = 'none';
+            jobRole.innerHTML = '<option value="">Select a role...</option>';
+        }
+    }
+
+    jobTitle.addEventListener('change', function() {
+        if (jobTitle.value === 'Other') {
+            customTitleGrp.style.display = 'block';
+            roleGroup.style.display = 'none';
+            customRoleGrp.style.display = 'none';
+        } else {
+            customTitleGrp.style.display = 'none';
+            loadRoles(jobTitle.value);
+        }
+        validateForm();
+    });
+
+    jobRole.addEventListener('change', function() {
+        customRoleGrp.style.display = (jobRole.value === 'Other') ? 'block' : 'none';
+        validateForm();
+    });
+
+    if (job.title) {
+        if (job.title === 'Other') { customTitleGrp.style.display = 'block'; }
+        else { loadRoles(job.title); }
+    }
+
+    /* ─── Location toggles ─── */
+    function updateLocation() {
+        officeAddrGrp.style.display = locOffice.checked ? 'block' : 'none';
+        fieldAddrGrp.style.display = locField.checked ? 'block' : 'none';
+        validateForm();
+    }
+    document.querySelectorAll('input[name="workLocation"]').forEach(function(r) {
+        r.addEventListener('change', updateLocation);
+    });
+
+    /* ─── Pay type toggles ─── */
+    function updatePay() {
+        salaryFields.style.display = (payFixed.checked || payFixedIncentive.checked || payIncentive.checked) ? 'grid' : 'none';
+        validateForm();
+    }
+    payFixed.addEventListener('change', updatePay);
+    payFixedIncentive.addEventListener('change', updatePay);
+    payIncentive.addEventListener('change', updatePay);
+
+    /* ─── Perks toggle ─── */
+    perkOther.addEventListener('change', function() {
+        customPerkGrp.style.display = perkOther.checked ? 'block' : 'none';
+    });
+
+    /* ─── Validation ─── */
+    function val(name) {
+        var el = document.querySelector('[name="' + name + '"]');
+        if (!el) return '';
+        if (el.type === 'radio') {
+            var checked = document.querySelector('[name="' + name + '"]:checked');
+            return checked ? checked.value : '';
+        }
+        if (el.type === 'checkbox') return el.checked ? '1' : '';
+        return el.value.trim();
+    }
+
+    function validateForm() {
+        var title = jobTitle.value;
+        var role = roleGroup.style.display !== 'none' ? jobRole.value : 'skip';
+        var loc = val('workLocation');
+
+        var valid = true;
+        if (!companyInput.value.trim()) valid = false;
+        if (!title) valid = false;
+        if (title === 'Other' && !document.getElementById('customTitle').value.trim()) valid = false;
+        if (role === 'Other' && !document.getElementById('customRole').value.trim()) valid = false;
+        if (!val('jobType')) valid = false;
+        if (!loc) valid = false;
+        if (loc === 'office' && !document.getElementById('officeAddress').value.trim()) valid = false;
+        if (loc === 'field' && !document.getElementById('fieldAddress').value.trim()) valid = false;
+        if (!val('joiningFee')) valid = false;
+
+        continueBtn.disabled = !valid;
+    }
+
+    /* ─── Listen to all inputs ─── */
+    document.querySelectorAll('#step1Form input, #step1Form select').forEach(function(el) {
+        el.addEventListener('change', validateForm);
+        el.addEventListener('input', validateForm);
+    });
+
+    validateForm();
+})();
+</script>

@@ -77,6 +77,11 @@
                         <input type="email" name="workEmail" placeholder="you@company.com" required value="<%= employer && employer.workEmail ? employer.workEmail : '' %>">
                     </div>
 
+                    <div class="form-group">
+                        <label>Company Address</label>
+                        <input type="text" name="companyAddress" placeholder="Full office address (city, state)" value="<%= employer && employer.companyAddress ? employer.companyAddress : '' %>">
+                    </div>
+
                     <div class="form-check">
                         <input type="checkbox" id="toc" name="agreedToToc" value="true" required>
                         <label for="toc">I agree to JOBCARE's <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy Policy</a></label>

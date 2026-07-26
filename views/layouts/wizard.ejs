@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="wizard-body">
+    <div class="wizard-layout">
+        <div class="wizard-header">
+            <a href="/employer/dashboard/jobs" class="wizard-back">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </a>
+            <h1 class="wizard-title">Post a new job</h1>
+        </div>
+
+        <div class="wizard-stepper">
+            <div class="wizard-step" data-step="1">
+                <div class="wizard-circle active"><span>1</span></div>
+                <span class="wizard-label">Job Details</span>
+            </div>
+            <div class="wizard-line"></div>
+            <div class="wizard-step" data-step="2">
+                <div class="wizard-circle"><span>2</span></div>
+                <span class="wizard-label">Description</span>
+            </div>
+            <div class="wizard-line"></div>
+            <div class="wizard-step" data-step="3">
+                <div class="wizard-circle"><span>3</span></div>
+                <span class="wizard-label">Screening</span>
+            </div>
+            <div class="wizard-line"></div>
+            <div class="wizard-step" data-step="4">
+                <div class="wizard-circle"><span>4</span></div>
+                <span class="wizard-label">Visibility</span>
+            </div>
+            <div class="wizard-line"></div>
+            <div class="wizard-step" data-step="5">
+                <div class="wizard-circle"><span>5</span></div>
+                <span class="wizard-label">Review</span>
+            </div>
+        </div>
+
+        <div class="wizard-content">
+            <%- body %>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        var currentStep = <%= typeof currentStep !== 'undefined' ? currentStep : 1 %>;
+        var circles = document.querySelectorAll('.wizard-circle');
+        var lines = document.querySelectorAll('.wizard-line');
+        var labels = document.querySelectorAll('.wizard-label');
+
+        function updateStepper(step) {
+            circles.forEach(function(c, i) {
+                var num = i + 1;
+                c.classList.remove('active', 'completed');
+                if (num < step) {
+                    c.classList.add('completed');
+                    c.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+                } else if (num === step) {
+                    c.classList.add('active');
+                    c.innerHTML = '<span>' + num + '</span>';
+                } else {
+                    c.innerHTML = '<span>' + num + '</span>';
+                }
+            });
+            lines.forEach(function(l, i) {
+                if (i < step - 1) {
+                    l.classList.add('filled');
+                } else {
+                    l.classList.remove('filled');
+                }
+            });
+            labels.forEach(function(l, i) {
+                l.classList.toggle('active', i + 1 === step);
+            });
+        }
+
+        updateStepper(currentStep);
+    })();
+    </script>
+</body>
+</html>

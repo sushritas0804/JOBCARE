@@ -1387,4 +1387,399 @@ body {
     .emp-auth-head h2 { font-size: 26px; }
     .emp-otp-inputs { gap: 6px; }
     .otp-digit { width: 42px; height: 50px; font-size: 20px; }
+
+    .wizard-stepper { gap: 8px; }
+    .wizard-circle { width: 32px; height: 32px; font-size: 14px; }
+    .wizard-label { font-size: 11px; }
+    .wizard-card { padding: 24px 20px; }
+}
+
+
+/* ═══════════════════════════════════════════════════
+   JOB POSTING WIZARD
+   ═══════════════════════════════════════════════════ */
+
+.wizard-body {
+    font-family: 'Times New Roman', Times, serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    min-height: 100vh;
+}
+
+.wizard-layout {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+}
+
+/* ─── Header ─── */
+.wizard-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 36px;
+}
+
+.wizard-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.2s, border-color 0.2s;
+    flex-shrink: 0;
+}
+
+.wizard-back:hover {
+    background: var(--glass-bg-mid);
+    border-color: var(--glass-border-mid);
+}
+
+.wizard-back svg {
+    width: 20px;
+    height: 20px;
+}
+
+.wizard-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text);
+}
+
+/* ─── Stepper ─── */
+.wizard-stepper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 40px;
+    padding: 0 10px;
+}
+
+.wizard-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+}
+
+.wizard-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    border: 2px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text-muted);
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.wizard-circle svg {
+    width: 18px;
+    height: 18px;
+    stroke: #fff;
+}
+
+.wizard-circle.active {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+.wizard-circle.completed {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #fff;
+    box-shadow: none;
+}
+
+.wizard-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+
+.wizard-label.active {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.wizard-line {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    margin: 0 -2px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    min-width: 30px;
+    max-width: 80px;
+}
+
+.wizard-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    transition: width 0.5s ease;
+}
+
+.wizard-line.filled::after {
+    width: 100%;
+}
+
+/* ─── Card ─── */
+.wizard-card {
+    background: var(--surface-2);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 32px 28px;
+    box-shadow: var(--glass-shadow);
+}
+
+/* ─── Error ─── */
+.wizard-error {
+    background: rgba(220, 38, 38, 0.08);
+    border: 1px solid rgba(220, 38, 38, 0.2);
+    color: #991b1b;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+/* ─── Sections ─── */
+.wizard-section {
+    margin-bottom: 32px;
+}
+
+.wizard-section:last-child {
+    margin-bottom: 0;
+}
+
+.wizard-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 20px;
+    color: var(--text);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+/* ─── Form groups (reused auth styles) ─── */
+.wizard-card .form-group {
+    margin-bottom: 20px;
+}
+
+.wizard-card .form-group:last-child {
+    margin-bottom: 0;
+}
+
+.wizard-card label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+}
+
+.wizard-card .required {
+    color: #dc2626;
+}
+
+.wizard-card input[type="text"],
+.wizard-card input[type="number"],
+.wizard-card input[type="email"],
+.wizard-card select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--input-border);
+    border-radius: 10px;
+    background: var(--input-bg);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    box-sizing: border-box;
+}
+
+.wizard-card input:focus,
+.wizard-card select:focus {
+    border-color: var(--border-focus);
+    background: var(--input-focus-bg);
+}
+
+.wizard-card select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(33,40,66,0.4)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+.wizard-card .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* ─── Radio buttons ─── */
+.wizard-card .emp-radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.wizard-card .emp-radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 10px 16px;
+    border: 1px solid var(--input-border);
+    border-radius: 10px;
+    background: var(--input-bg);
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 14px;
+}
+
+.wizard-card .emp-radio:hover {
+    border-color: var(--border-focus);
+}
+
+.wizard-card .emp-radio input {
+    display: none;
+}
+
+.wizard-card .emp-radio-mark {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    position: relative;
+    transition: border-color 0.2s;
+}
+
+.wizard-card .emp-radio input:checked ~ .emp-radio-mark {
+    border-color: var(--accent);
+}
+
+.wizard-card .emp-radio input:checked ~ .emp-radio-mark::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.wizard-card .emp-radio input:checked ~ span:last-child {
+    font-weight: 600;
+}
+
+/* ─── Checkboxes ─── */
+.wizard-checks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.wizard-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px 14px;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    background: var(--input-bg);
+    transition: border-color 0.2s, background 0.2s;
+    font-size: 14px;
+}
+
+.wizard-check:hover {
+    border-color: var(--border-focus);
+}
+
+.wizard-check input {
+    display: none;
+}
+
+.wizard-check input:checked + span {
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.wizard-check:has(input:checked) {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+}
+
+/* ─── Actions ─── */
+.wizard-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+}
+
+.wizard-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+    text-decoration: none;
+}
+
+.wizard-actions .btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.wizard-actions .btn-primary {
+    background: var(--accent);
+    color: #fff;
+}
+
+.wizard-actions .btn-primary:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.wizard-actions .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }

@@ -123,7 +123,7 @@ router.get('/onboarding', async (req, res) => {
 
 router.post('/onboarding', async (req, res) => {
     if (!req.session || !req.session.employer) return res.redirect('/employer/login');
-    const { name, companyName, isConsultancy, workEmail, agreedToToc } = req.body;
+    const { name, companyName, isConsultancy, workEmail, companyAddress, agreedToToc } = req.body;
     if (!name || !name.trim()) {
         return res.render('employer/onboarding', {
             title: 'JOBCARE - Complete Your Profile',
@@ -168,6 +168,7 @@ router.post('/onboarding', async (req, res) => {
                 companyName: companyName.trim(),
                 isConsultancy: isConsultancy === 'yes',
                 workEmail: workEmail.trim(),
+                companyAddress: companyAddress ? companyAddress.trim() : '',
                 agreedToToc: true,
                 profileComplete: true
             },

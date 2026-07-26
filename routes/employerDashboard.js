@@ -30,10 +30,15 @@ router.get('/', async (req, res) => {
 router.get('/jobs', async (req, res) => {
     try {
         const employer = await Employer.findById(req.session.employer.id);
+        if (!employer) return res.redirect('/employer/logout');
+
+        const jobs = await Job.find({ employer: employer._id }).sort({ createdAt: -1 });
+
         res.render('employer/dashboard/jobs', {
             title: 'JOBCARE - Jobs',
             employer: employer,
-            activePage: 'jobs'
+            activePage: 'jobs',
+            jobs: jobs
         });
     } catch (err) {
         res.redirect('/employer/dashboard');
@@ -472,6 +477,109 @@ router.get('/jobs/create/step4', async (req, res) => {
         });
     } catch (err) {
         console.error('Job create step4 GET error:', err);
+        res.redirect('/employer/dashboard/jobs');
+    }
+});
+
+router.post('/jobs/create/step4', async (req, res) => {
+    try {
+        const employer = await Employer.findById(req.session.employer.id);
+        if (!employer) return res.redirect('/employer/logout');
+
+        const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
+        if (!draft) return res.redirect('/employer/dashboard/jobs/create');
+
+        await Job.findByIdAndUpdate(draft._id, { currentStep: 5 });
+        res.redirect('/employer/dashboard/jobs/create/step5');
+    } catch (err) {
+        console.error('Job create step4 POST error:', err);
+        res.redirect('/employer/dashboard/jobs');
+    }
+});
+
+/* ─── Step 5: Publish (Plans) ─── */
+
+router.get('/jobs/create/step5', async (req, res) => {
+    try {
+        const employer = await Employer.findById(req.session.employer.id);
+        if (!employer) return res.redirect('/employer/logout');
+
+        const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
+        if (!draft || draft.currentStep < 5) return res.redirect('/employer/dashboard/jobs/create');
+
+        res.locals.layout = 'layouts/wizard';
+        res.render('employer/job-post/step5', {
+            title: 'JOBCARE - Choose Your Plan',
+            employer: employer,
+            job: draft.toObject(),
+            currentStep: 5,
+            error: null
+        });
+    } catch (err) {
+        console.error('Job create step5 GET error:', err);
+        res.redirect('/employer/dashboard/jobs');
+    }
+});
+
+router.post('/jobs/create/step5', async (req, res) => {
+    try {
+        const employer = await Employer.findById(req.session.employer.id);
+        if (!employer) return res.redirect('/employer/logout');
+
+        const { subscriptionPlan, perPlacementFee } = req.body;
+
+        if (!subscriptionPlan || !['starter', 'growth', 'premium'].includes(subscriptionPlan)) {
+            const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
+            const jobData = draft ? draft.toObject() : {};
+            jobData.subscriptionPlan = subscriptionPlan || '';
+            jobData.perPlacementFee = perPlacementFee || '';
+
+            return res.render('employer/job-post/step5', {
+                title: 'JOBCARE - Choose Your Plan',
+                employer: employer,
+                job: jobData,
+                currentStep: 5,
+                error: 'Please select a subscription plan to continue'
+            });
+        }
+
+        const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
+        if (!draft) return res.redirect('/employer/dashboard/jobs/create');
+
+        await Job.findByIdAndUpdate(draft._id, {
+            subscriptionPlan,
+            perPlacementFee: perPlacementFee || '',
+            publishedAt: new Date(),
+            status: 'active'
+        });
+
+        return res.redirect('/employer/dashboard/jobs/create/success');
+    } catch (err) {
+        console.error('Job create step5 POST error:', err);
+        return res.redirect('/employer/dashboard/jobs/create/step5');
+    }
+});
+
+/* ─── Publish Success ─── */
+
+router.get('/jobs/create/success', async (req, res) => {
+    try {
+        const employer = await Employer.findById(req.session.employer.id);
+        if (!employer) return res.redirect('/employer/logout');
+
+        const job = await Job.findOne({ employer: employer._id, status: 'active' }).sort({ publishedAt: -1 });
+        if (!job) return res.redirect('/employer/dashboard/jobs');
+
+        res.locals.layout = 'layouts/wizard';
+        res.render('employer/job-post/success', {
+            title: 'JOBCARE - Job Published',
+            employer: employer,
+            job: job.toObject(),
+            currentStep: 5,
+            error: null
+        });
+    } catch (err) {
+        console.error('Job publish success error:', err);
         res.redirect('/employer/dashboard/jobs');
     }
 });

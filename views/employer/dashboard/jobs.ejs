@@ -6,8 +6,91 @@
             Post New Job
         </a>
     </div>
-    <div class="dash-empty-state">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-        <p>You haven't posted any jobs yet. Create your first job listing to start finding candidates.</p>
-    </div>
+
+    <% if (jobs && jobs.length > 0) { %>
+
+        <% var drafts = jobs.filter(function(j) { return j.status === 'draft'; }); %>
+        <% var active = jobs.filter(function(j) { return j.status === 'active'; }); %>
+        <% var closed = jobs.filter(function(j) { return j.status === 'closed'; }); %>
+
+        <% if (drafts.length > 0) { %>
+            <h3 class="dash-job-group-title">Drafts</h3>
+            <div class="dash-job-list">
+                <% drafts.forEach(function(job) { %>
+                    <div class="dash-job-card dash-job-draft">
+                        <div class="dash-job-card-main">
+                            <div class="dash-job-card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                            </div>
+                            <div class="dash-job-card-info">
+                                <h4><%= job.title === 'Other' ? job.customTitle : (job.title || 'Untitled Job') %></h4>
+                                <span class="dash-job-meta"><%= job.companyName || employer.companyName %> &middot; Draft &middot; Step <%= job.currentStep %>/5</span>
+                            </div>
+                        </div>
+                        <div class="dash-job-card-actions">
+                            <a href="/employer/dashboard/jobs/create/step<%= job.currentStep %>" class="btn btn-primary btn-sm">Resume</a>
+                            <form action="/employer/dashboard/jobs/create/draft/delete" method="POST" style="display:inline;" onsubmit="return confirm('Delete this draft?')">
+                                <input type="hidden" name="jobId" value="<%= job._id %>">
+                                <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
+
+        <% if (active.length > 0) { %>
+            <h3 class="dash-job-group-title">Active</h3>
+            <div class="dash-job-list">
+                <% active.forEach(function(job) { %>
+                    <div class="dash-job-card">
+                        <div class="dash-job-card-main">
+                            <div class="dash-job-card-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                            </div>
+                            <div class="dash-job-card-info">
+                                <h4><%= job.title === 'Other' ? job.customTitle : (job.title || 'Untitled Job') %></h4>
+                                <span class="dash-job-meta"><%= job.companyName || employer.companyName %> &middot; Active since <%= job.publishedAt ? new Date(job.publishedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'N/A' %></span>
+                                <div class="dash-job-tags">
+                                    <% if (job.jobType) { %><span class="dash-job-tag"><%= job.jobType === 'full-time' ? 'Full-time' : job.jobType === 'part-time' ? 'Part-time' : 'Both' %></span><% } %>
+                                    <% if (job.workLocation) { %><span class="dash-job-tag"><%= job.workLocation === 'office' ? 'Office' : job.workLocation === 'remote' ? 'Remote' : 'Field' %></span><% } %>
+                                    <% if (job.subscriptionPlan) { %><span class="dash-job-tag dash-job-tag-plan"><%= job.subscriptionPlan.charAt(0).toUpperCase() + job.subscriptionPlan.slice(1) %></span><% } %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dash-job-card-actions">
+                            <% if (job.payMin || job.payMax) { %>
+                                <span class="dash-job-salary">&#8377;<%= (job.payMin || 0).toLocaleString('en-IN') %><% if (job.payMax && job.payMax !== job.payMin) { %> &ndash; <%= job.payMax.toLocaleString('en-IN') %><% } %><% if (job.payType !== 'fixed') { %>/<%= job.payType === 'incentive' ? 'Incentive' : job.payType === 'fixed-incentive' ? 'Fixed+Incentive' : '' %><% } %></span>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
+
+        <% if (closed.length > 0) { %>
+            <h3 class="dash-job-group-title">Closed</h3>
+            <div class="dash-job-list">
+                <% closed.forEach(function(job) { %>
+                    <div class="dash-job-card dash-job-closed">
+                        <div class="dash-job-card-main">
+                            <div class="dash-job-card-icon dash-job-card-icon-closed">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                            </div>
+                            <div class="dash-job-card-info">
+                                <h4><%= job.title === 'Other' ? job.customTitle : (job.title || 'Untitled Job') %></h4>
+                                <span class="dash-job-meta"><%= job.companyName || employer.companyName %> &middot; Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
+
+    <% } else { %>
+        <div class="dash-empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            <p>You haven't posted any jobs yet. Create your first job listing to start finding candidates.</p>
+        </div>
+    <% } %>
 </div>

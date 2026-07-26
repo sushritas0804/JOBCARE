@@ -54,8 +54,10 @@ const jobSchema = new mongoose.Schema({
     recruiterEmail: { type: String, default: '' },
     whatsappAlerts: { type: String, enum: ['yes', 'no', ''], default: '' },
 
-    /* Steps 4–5 — placeholders, populated later */
-    publishSettings: { type: String, default: '' },
+    /* Step 5 — Publish */
+    subscriptionPlan: { type: String, enum: ['starter', 'growth', 'premium', ''], default: '' },
+    perPlacementFee: { type: String, enum: ['150', '200', '300', '400', '500', ''], default: '' },
+    publishedAt: { type: Date, default: null },
 
     /* Wizard state */
     currentStep: { type: Number, default: 1 },

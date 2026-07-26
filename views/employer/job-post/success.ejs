@@ -1,0 +1,52 @@
+<div class="wizard-card">
+    <div class="success-wrap">
+        <div class="success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+
+        <h2 class="success-title">Job Published Successfully!</h2>
+        <p class="success-subtitle">Your job listing is now live on JOBCARE.</p>
+
+        <%
+            var planMap = {
+                'starter': { name: 'Starter', price: '999', views: '50 views', duration: '15 days' },
+                'growth':  { name: 'Growth',  price: '2,499', views: '200 views', duration: '30 days' },
+                'premium': { name: 'Premium', price: '4,999', views: 'Unlimited views', duration: '60 days' }
+            };
+            var plan = planMap[job.subscriptionPlan] || { name: 'N/A', price: '0', views: 'N/A', duration: 'N/A' };
+            var jobTitle = job.title === 'Other' ? (job.customTitle || 'Not specified') : (job.title || 'Not specified');
+            var pubDate = job.publishedAt ? new Date(job.publishedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Just now';
+        %>
+
+        <div class="success-summary">
+            <div class="success-row">
+                <span class="success-label">Company</span>
+                <span class="success-value"><%= job.companyName || 'Not specified' %></span>
+            </div>
+            <div class="success-row">
+                <span class="success-label">Job Title</span>
+                <span class="success-value"><%= jobTitle %></span>
+            </div>
+            <div class="success-row">
+                <span class="success-label">Plan</span>
+                <span class="success-value"><%= plan.name %> (&#8377;<%= plan.price %>/month)</span>
+            </div>
+            <div class="success-row">
+                <span class="success-label">Per-placement fee</span>
+                <span class="success-value"><%= job.perPlacementFee ? '&#8377;' + job.perPlacementFee + ' per hire' : 'Not selected' %></span>
+            </div>
+            <div class="success-row">
+                <span class="success-label">Published</span>
+                <span class="success-value"><%= pubDate %></span>
+            </div>
+        </div>
+
+        <div class="success-actions">
+            <a href="/employer/dashboard/jobs" class="btn btn-primary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <span>View your job listing</span>
+            </a>
+            <a href="/employer/dashboard/jobs/create" class="success-link">Post another job</a>
+        </div>
+    </div>
+</div>

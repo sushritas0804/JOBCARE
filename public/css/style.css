@@ -2367,3 +2367,442 @@ body {
     margin: 0 0 8px 24px;
     font-style: italic;
 }
+
+/* ═══════════════════════════════════════════════
+   Step 5 — Plan Cards
+   ═══════════════════════════════════════════════ */
+
+.wizard-section-optional {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.plan-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.plan-card {
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    background: #fff;
+}
+
+.plan-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(33, 40, 66, 0.08);
+}
+
+.plan-card.selected {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, rgba(33, 40, 66, 0.02), rgba(33, 40, 66, 0.05));
+    box-shadow: 0 4px 16px rgba(33, 40, 66, 0.12);
+}
+
+.plan-card-popular {
+    border-color: var(--accent);
+}
+
+.plan-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 4px 14px;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.plan-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(33, 40, 66, 0.06);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.plan-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.plan-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 8px;
+}
+
+.plan-price {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 0 0 20px;
+}
+
+.plan-price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+.plan-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    text-align: left;
+}
+
+.plan-feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.plan-feature svg {
+    width: 16px;
+    height: 16px;
+    color: #27ae60;
+    flex-shrink: 0;
+}
+
+.plan-select {
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    border-top: 1px solid var(--border);
+    transition: color 0.2s;
+}
+
+.plan-card.selected .plan-select {
+    color: #fff;
+}
+
+/* ─── Per-Placement Card ─── */
+.perk-placement-card {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+}
+
+.perk-placement-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.perk-placement-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(33, 40, 66, 0.06);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.perk-placement-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.perk-placement-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px;
+}
+
+.perk-placement-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.perk-placement-select {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.perk-placement-select label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.perk-placement-select select {
+    padding: 12px 16px;
+    border: 1px solid var(--input-border);
+    border-radius: 10px;
+    background: var(--input-bg);
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(33,40,66,0.4)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.perk-placement-select select:focus {
+    border-color: var(--border-focus);
+}
+
+/* ═══════════════════════════════════════════════
+   Success / Confirmation Page
+   ═══════════════════════════════════════════════ */
+
+.success-wrap {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.success-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #27ae60;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.success-icon svg {
+    width: 36px;
+    height: 36px;
+}
+
+.success-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 8px;
+}
+
+.success-subtitle {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin: 0 0 32px;
+}
+
+.success-summary {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    text-align: left;
+    margin: 0 auto 32px;
+    max-width: 480px;
+}
+
+.success-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+}
+
+.success-row:last-child {
+    border-bottom: none;
+}
+
+.success-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.success-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    text-align: right;
+}
+
+.success-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.success-link {
+    font-size: 14px;
+    color: var(--accent);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.success-link:hover {
+    opacity: 0.8;
+}
+
+/* ═══════════════════════════════════════════════
+   Dashboard — Jobs Page
+   ═══════════════════════════════════════════════ */
+
+.dash-job-group-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 24px 0 12px;
+}
+
+.dash-job-group-title:first-child {
+    margin-top: 0;
+}
+
+.dash-job-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dash-job-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-radius: 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    transition: all 0.2s;
+}
+
+.dash-job-card:hover {
+    border-color: var(--glass-border-mid);
+    box-shadow: 0 2px 10px rgba(33, 40, 66, 0.06);
+}
+
+.dash-job-draft {
+    border-style: dashed;
+    border-color: var(--border);
+    background: var(--input-bg);
+}
+
+.dash-job-closed {
+    opacity: 0.6;
+}
+
+.dash-job-card-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.dash-job-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.dash-job-card-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.dash-job-card-icon-closed {
+    background: var(--tag-bg);
+    color: var(--text-muted);
+}
+
+.dash-job-card-info {
+    min-width: 0;
+}
+
+.dash-job-card-info h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dash-job-meta {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+}
+
+.dash-job-tags {
+    display: flex;
+    gap: 5px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.dash-job-tag {
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 500;
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    color: var(--text-secondary);
+}
+
+.dash-job-tag-plan {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-color: rgba(33, 40, 66, 0.12);
+}
+
+.dash-job-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.dash-job-salary {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+}

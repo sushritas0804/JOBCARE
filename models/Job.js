@@ -31,8 +31,23 @@ const jobSchema = new mongoose.Schema({
     additionalRequirements: { type: [String], default: [] },
     jobDescription: { type: String, default: '' },
 
-    /* Steps 3–5 — placeholders, populated later */
-    screeningQuestions: { type: [String], default: [] },
+    /* Step 3 — Interviewer Information */
+    isWalkIn: { type: String, enum: ['yes', 'no', ''], default: '' },
+    companyAddress: { type: String, default: '' },
+    walkInAddress: { type: String, default: '' },
+    walkInFloorPlot: { type: String, default: '' },
+    walkInStartDate: { type: String, default: '' },
+    walkInEndDate: { type: String, default: '' },
+    walkInStartTime: { type: String, default: '' },
+    walkInEndTime: { type: String, default: '' },
+    walkInInstructions: { type: String, default: '' },
+    contactPreference: { type: String, enum: ['self', 'other', 'none', ''], default: '' },
+    recruiterName: { type: String, default: '' },
+    recruiterWhatsApp: { type: String, default: '' },
+    recruiterEmail: { type: String, default: '' },
+    whatsappAlerts: { type: String, enum: ['yes', 'no', ''], default: '' },
+
+    /* Steps 4–5 — placeholders, populated later */
     publishSettings: { type: String, default: '' },
 
     /* Wizard state */

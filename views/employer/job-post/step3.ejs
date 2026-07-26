@@ -1,0 +1,370 @@
+<div class="wizard-card">
+    <% if (error) { %>
+        <div class="wizard-error"><%= error %></div>
+    <% } %>
+
+    <% if (hasDraft) { %>
+        <div class="wizard-draft-banner">
+            <div class="wizard-draft-info">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>You have an unfinished job posting (step <%= draftStep %>). Continue where you left off, or start fresh?</span>
+            </div>
+            <div class="wizard-draft-actions">
+                <a href="/employer/dashboard/jobs/create/step<%= draftStep %>" class="wizard-draft-btn wizard-draft-continue">Continue draft</a>
+                <form action="/employer/dashboard/jobs/create/draft/delete" method="POST" style="display:inline;">
+                    <button type="submit" class="wizard-draft-btn wizard-draft-fresh">Start fresh</button>
+                </form>
+            </div>
+        </div>
+    <% } %>
+
+    <form action="/employer/dashboard/jobs/create/step3" method="POST" id="step3Form">
+
+        <!-- ═══ Section I: Interview Method & Address ═══ -->
+        <div class="wizard-section">
+            <h2 class="wizard-section-title">Interview Method &amp; Address</h2>
+
+            <div class="form-group">
+                <label>Is this a walk-in interview? <span class="required">*</span></label>
+                <div class="emp-radio-group">
+                    <label class="emp-radio">
+                        <input type="radio" name="isWalkIn" value="yes" id="walkInYes" <%= job.isWalkIn === 'yes' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Yes</span>
+                        <span class="wizard-tip" data-tip="A walk-in interview is a hiring process where candidates can appear directly at the venue on specified dates without a prior appointment.">i</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="isWalkIn" value="no" id="walkInNo" <%= job.isWalkIn === 'no' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- If No: Company address -->
+            <div class="form-group" id="companyAddressGroup" style="display: <%= job.isWalkIn === 'no' ? 'block' : 'none' %>;">
+                <label>Company address <span class="required">*</span></label>
+                <select name="companyAddressPreset" id="companyAddressPreset">
+                    <option value="">Select an address...</option>
+                    <option value="MG Road, Bangalore" <%= job.companyAddress === 'MG Road, Bangalore' ? 'selected' : '' %>>MG Road, Bangalore</option>
+                    <option value="Andheri East, Mumbai" <%= job.companyAddress === 'Andheri East, Mumbai' ? 'selected' : '' %>>Andheri East, Mumbai</option>
+                    <option value="Nehru Place, New Delhi" <%= job.companyAddress === 'Nehru Place, New Delhi' ? 'selected' : '' %>>Nehru Place, New Delhi</option>
+                    <option value="Salt Lake, Kolkata" <%= job.companyAddress === 'Salt Lake, Kolkata' ? 'selected' : '' %>>Salt Lake, Kolkata</option>
+                    <option value="T. Nagar, Chennai" <%= job.companyAddress === 'T. Nagar, Chennai' ? 'selected' : '' %>>T. Nagar, Chennai</option>
+                    <option value="Banjara Hills, Hyderabad" <%= job.companyAddress === 'Banjara Hills, Hyderabad' ? 'selected' : '' %>>Banjara Hills, Hyderabad</option>
+                    <option value="Aundh, Pune" <%= job.companyAddress === 'Aundh, Pune' ? 'selected' : '' %>>Aundh, Pune</option>
+                    <option value="Vashi, Navi Mumbai" <%= job.companyAddress === 'Vashi, Navi Mumbai' ? 'selected' : '' %>>Vashi, Navi Mumbai</option>
+                    <option value="Other" id="companyAddrOtherOpt" <%= (job.companyAddress && !['MG Road, Bangalore','Andheri East, Mumbai','Nehru Place, New Delhi','Salt Lake, Kolkata','T. Nagar, Chennai','Banjara Hills, Hyderabad','Aundh, Pune','Vashi, Navi Mumbai'].includes(job.companyAddress)) ? 'selected' : '' %>>Other</option>
+                </select>
+                <input type="text" name="companyAddressCustom" id="companyAddressCustom" class="wizard-mt-8" placeholder="Enter your full company address" style="display: <%= (job.companyAddress && !['MG Road, Bangalore','Andheri East, Mumbai','Nehru Place, New Delhi','Salt Lake, Kolkata','T. Nagar, Chennai','Banjara Hills, Hyderabad','Aundh, Pune','Vashi, Navi Mumbai'].includes(job.companyAddress)) ? 'block' : 'none' %>;" value="<%= job.companyAddress || '' %>">
+            </div>
+
+            <!-- If Yes: Walk-in fields -->
+            <div id="walkInFields" style="display: <%= job.isWalkIn === 'yes' ? 'block' : 'none' %>;">
+                <div class="form-group">
+                    <label>Walk-in interview address <span class="required">*</span></label>
+                    <input type="text" name="walkInAddress" placeholder="Full address for the walk-in venue" value="<%= job.walkInAddress || '' %>">
+                </div>
+
+                <div class="form-group">
+                    <label>Floor, plot no. (optional)</label>
+                    <input type="text" name="walkInFloorPlot" placeholder="e.g. 3rd Floor, Plot 12-B" value="<%= job.walkInFloorPlot || '' %>">
+                </div>
+
+                <div class="wizard-dates">
+                    <div class="form-group">
+                        <label>Walk-in start date <span class="required">*</span></label>
+                        <input type="text" name="walkInStartDate" class="wizard-date-input" placeholder="dd/mm/yyyy" maxlength="10" value="<%= job.walkInStartDate || '' %>">
+                    </div>
+                    <div class="form-group">
+                        <label>Walk-in end date <span class="required">*</span></label>
+                        <input type="text" name="walkInEndDate" class="wizard-date-input" placeholder="dd/mm/yyyy" maxlength="10" value="<%= job.walkInEndDate || '' %>">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Walk-in timings <span class="required">*</span></label>
+                    <div class="wizard-times">
+                        <select name="walkInStartTime" class="wizard-time-select">
+                            <option value="">Start time</option>
+                            <option value="08:00 AM" <%= job.walkInStartTime === '08:00 AM' ? 'selected' : '' %>>08:00 AM</option>
+                            <option value="08:30 AM" <%= job.walkInStartTime === '08:30 AM' ? 'selected' : '' %>>08:30 AM</option>
+                            <option value="09:00 AM" <%= job.walkInStartTime === '09:00 AM' ? 'selected' : '' %>>09:00 AM</option>
+                            <option value="09:30 AM" <%= job.walkInStartTime === '09:30 AM' ? 'selected' : '' %>>09:30 AM</option>
+                            <option value="10:00 AM" <%= job.walkInStartTime === '10:00 AM' ? 'selected' : '' %>>10:00 AM</option>
+                            <option value="10:30 AM" <%= job.walkInStartTime === '10:30 AM' ? 'selected' : '' %>>10:30 AM</option>
+                            <option value="11:00 AM" <%= job.walkInStartTime === '11:00 AM' ? 'selected' : '' %>>11:00 AM</option>
+                            <option value="11:30 AM" <%= job.walkInStartTime === '11:30 AM' ? 'selected' : '' %>>11:30 AM</option>
+                            <option value="12:00 PM" <%= job.walkInStartTime === '12:00 PM' ? 'selected' : '' %>>12:00 PM</option>
+                            <option value="12:30 PM" <%= job.walkInStartTime === '12:30 PM' ? 'selected' : '' %>>12:30 PM</option>
+                            <option value="01:00 PM" <%= job.walkInStartTime === '01:00 PM' ? 'selected' : '' %>>01:00 PM</option>
+                            <option value="01:30 PM" <%= job.walkInStartTime === '01:30 PM' ? 'selected' : '' %>>01:30 PM</option>
+                            <option value="02:00 PM" <%= job.walkInStartTime === '02:00 PM' ? 'selected' : '' %>>02:00 PM</option>
+                            <option value="02:30 PM" <%= job.walkInStartTime === '02:30 PM' ? 'selected' : '' %>>02:30 PM</option>
+                            <option value="03:00 PM" <%= job.walkInStartTime === '03:00 PM' ? 'selected' : '' %>>03:00 PM</option>
+                            <option value="03:30 PM" <%= job.walkInStartTime === '03:30 PM' ? 'selected' : '' %>>03:30 PM</option>
+                            <option value="04:00 PM" <%= job.walkInStartTime === '04:00 PM' ? 'selected' : '' %>>04:00 PM</option>
+                        </select>
+                        <span class="wizard-time-sep">&mdash;</span>
+                        <select name="walkInEndTime" class="wizard-time-select">
+                            <option value="">End time</option>
+                            <option value="08:00 AM" <%= job.walkInEndTime === '08:00 AM' ? 'selected' : '' %>>08:00 AM</option>
+                            <option value="08:30 AM" <%= job.walkInEndTime === '08:30 AM' ? 'selected' : '' %>>08:30 AM</option>
+                            <option value="09:00 AM" <%= job.walkInEndTime === '09:00 AM' ? 'selected' : '' %>>09:00 AM</option>
+                            <option value="09:30 AM" <%= job.walkInEndTime === '09:30 AM' ? 'selected' : '' %>>09:30 AM</option>
+                            <option value="10:00 AM" <%= job.walkInEndTime === '10:00 AM' ? 'selected' : '' %>>10:00 AM</option>
+                            <option value="10:30 AM" <%= job.walkInEndTime === '10:30 AM' ? 'selected' : '' %>>10:30 AM</option>
+                            <option value="11:00 AM" <%= job.walkInEndTime === '11:00 AM' ? 'selected' : '' %>>11:00 AM</option>
+                            <option value="11:30 AM" <%= job.walkInEndTime === '11:30 AM' ? 'selected' : '' %>>11:30 AM</option>
+                            <option value="12:00 PM" <%= job.walkInEndTime === '12:00 PM' ? 'selected' : '' %>>12:00 PM</option>
+                            <option value="12:30 PM" <%= job.walkInEndTime === '12:30 PM' ? 'selected' : '' %>>12:30 PM</option>
+                            <option value="01:00 PM" <%= job.walkInEndTime === '01:00 PM' ? 'selected' : '' %>>01:00 PM</option>
+                            <option value="01:30 PM" <%= job.walkInEndTime === '01:30 PM' ? 'selected' : '' %>>01:30 PM</option>
+                            <option value="02:00 PM" <%= job.walkInEndTime === '02:00 PM' ? 'selected' : '' %>>02:00 PM</option>
+                            <option value="02:30 PM" <%= job.walkInEndTime === '02:30 PM' ? 'selected' : '' %>>02:30 PM</option>
+                            <option value="03:00 PM" <%= job.walkInEndTime === '03:00 PM' ? 'selected' : '' %>>03:00 PM</option>
+                            <option value="03:30 PM" <%= job.walkInEndTime === '03:30 PM' ? 'selected' : '' %>>03:30 PM</option>
+                            <option value="04:00 PM" <%= job.walkInEndTime === '04:00 PM' ? 'selected' : '' %>>04:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Other instructions</label>
+                    <textarea name="walkInInstructions" class="wizard-textarea" rows="3" placeholder="e.g. Bring a valid ID card, updated resume, previous work certificates..."><%= job.walkInInstructions || '' %></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Section II: Communication Preferences ═══ -->
+        <div class="wizard-section">
+            <h2 class="wizard-section-title">Communication Preferences</h2>
+
+            <div class="form-group">
+                <label>Do you want candidates to contact you via Call / WhatsApp after they apply? <span class="required">*</span></label>
+                <div class="emp-radio-group emp-radio-col">
+                    <label class="emp-radio">
+                        <input type="radio" name="contactPreference" value="self" id="contactSelf" <%= job.contactPreference === 'self' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Yes, to myself</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="contactPreference" value="other" id="contactOther" <%= job.contactPreference === 'other' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Yes, to other recruiter</span>
+                    </label>
+                    <label class="emp-radio" id="contactNoneWrap">
+                        <input type="radio" name="contactPreference" value="none" id="contactNone" <%= job.contactPreference === 'none' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>No, I will contact candidates first</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- If other recruiter -->
+            <div id="otherRecruiterFields" style="display: <%= job.contactPreference === 'other' ? 'block' : 'none' %>;">
+                <div class="form-group">
+                    <label>Recruiter's Full Name <span class="required">*</span></label>
+                    <input type="text" name="recruiterName" placeholder="Full name of the recruiter" value="<%= job.recruiterName || '' %>">
+                </div>
+                <div class="form-group">
+                    <label>Recruiter's WhatsApp No. <span class="required">*</span></label>
+                    <input type="tel" name="recruiterWhatsApp" placeholder="10-digit mobile number" maxlength="10" pattern="[0-9]{10}" value="<%= job.recruiterWhatsApp || '' %>">
+                </div>
+                <div class="form-group">
+                    <label>Recruiter's Email Id <span class="required">*</span></label>
+                    <input type="email" name="recruiterEmail" placeholder="recruiter@example.com" value="<%= job.recruiterEmail || '' %>">
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ Section III: Notification Preferences ═══ -->
+        <div class="wizard-section">
+            <h2 class="wizard-section-title">Notification Preferences</h2>
+
+            <div class="form-group">
+                <label>Every time you receive a candidate application, do you want WhatsApp Alerts from JOBCARE? <span class="required">*</span></label>
+                <div class="emp-radio-group emp-radio-col">
+                    <label class="emp-radio" id="alertsYesWrap">
+                        <input type="radio" name="whatsappAlerts" value="yes" id="alertsYes" <%= job.whatsappAlerts === 'yes' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>Yes, send WhatsApp alerts to the recruiter</span>
+                    </label>
+                    <label class="emp-radio">
+                        <input type="radio" name="whatsappAlerts" value="no" id="alertsNo" <%= job.whatsappAlerts === 'no' ? 'checked' : '' %>>
+                        <span class="emp-radio-mark"></span>
+                        <span>No, send me summary once a day</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="wizard-actions">
+            <a href="/employer/dashboard/jobs/create/step2" class="btn btn-secondary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                <span>Back</span>
+            </a>
+            <button type="submit" class="btn btn-primary" id="continueBtn" disabled>
+                <span>Continue</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+(function() {
+    var job = <%- JSON.stringify(job) %>;
+    var presets = ['MG Road, Bangalore','Andheri East, Mumbai','Nehru Place, New Delhi','Salt Lake, Kolkata','T. Nagar, Chennai','Banjara Hills, Hyderabad','Aundh, Pune','Vashi, Navi Mumbai'];
+
+    var walkInYes = document.getElementById('walkInYes');
+    var walkInNo = document.getElementById('walkInNo');
+    var walkInFields = document.getElementById('walkInFields');
+    var companyAddrGrp = document.getElementById('companyAddressGroup');
+    var companyAddrPreset = document.getElementById('companyAddressPreset');
+    var companyAddrCustom = document.getElementById('companyAddressCustom');
+
+    var contactSelf = document.getElementById('contactSelf');
+    var contactOther = document.getElementById('contactOther');
+    var contactNone = document.getElementById('contactNone');
+    var contactNoneWrap = document.getElementById('contactNoneWrap');
+    var otherRecruiterGrp = document.getElementById('otherRecruiterFields');
+
+    var alertsYes = document.getElementById('alertsYes');
+    var alertsYesWrap = document.getElementById('alertsYesWrap');
+
+    var continueBtn = document.getElementById('continueBtn');
+    var dateInputs = document.querySelectorAll('.wizard-date-input');
+
+    /* ─── Walk-in toggle ─── */
+    function updateWalkIn() {
+        var isWalkIn = walkInYes.checked;
+        var isNo = walkInNo.checked;
+        walkInFields.style.display = isWalkIn ? 'block' : 'none';
+        companyAddrGrp.style.display = isNo ? 'block' : 'none';
+
+        /* Hide "No, I will contact candidates first" when walk-in is chosen */
+        if (isWalkIn && contactNone.checked) {
+            contactSelf.checked = true;
+        }
+        contactNoneWrap.style.display = isWalkIn ? 'none' : '';
+
+        updateAlertsVisibility();
+        validateForm();
+    }
+
+    walkInYes.addEventListener('change', updateWalkIn);
+    walkInNo.addEventListener('change', updateWalkIn);
+
+    /* ─── Company address preset / custom ─── */
+    companyAddrPreset.addEventListener('change', function() {
+        var isOther = companyAddrPreset.value === 'Other';
+        companyAddrCustom.style.display = isOther ? 'block' : 'none';
+        if (!isOther) companyAddrCustom.value = '';
+        validateForm();
+    });
+
+    /* ─── Contact preference toggle ─── */
+    function updateContact() {
+        otherRecruiterGrp.style.display = contactOther.checked ? 'block' : 'none';
+        updateAlertsVisibility();
+        validateForm();
+    }
+
+    contactSelf.addEventListener('change', updateContact);
+    contactOther.addEventListener('change', updateContact);
+    contactNone.addEventListener('change', updateContact);
+
+    /* ─── Alerts: hide "Yes" if no other recruiter and not self ─── */
+    function updateAlertsVisibility() {
+        var hasRecruiter = contactSelf.checked || contactOther.checked;
+        alertsYesWrap.style.display = hasRecruiter ? '' : 'none';
+        if (!hasRecruiter && alertsYes.checked) {
+            alertsNo.checked = true;
+        }
+    }
+
+    /* ─── Date input auto-format: dd/mm/yyyy ─── */
+    dateInputs.forEach(function(inp) {
+        inp.addEventListener('input', function(e) {
+            var val = inp.value.replace(/[^0-9]/g, '');
+            if (val.length > 8) val = val.substring(0, 8);
+            if (val.length >= 5) {
+                val = val.substring(0, 2) + '/' + val.substring(2, 4) + '/' + val.substring(4);
+            } else if (val.length >= 3) {
+                val = val.substring(0, 2) + '/' + val.substring(2);
+            }
+            inp.value = val;
+            validateForm();
+        });
+    });
+
+    /* ─── Validation ─── */
+    function getRadio(name) {
+        var el = document.querySelector('[name="' + name + '"]:checked');
+        return el ? el.value : '';
+    }
+
+    function val(name) {
+        var el = document.querySelector('[name="' + name + '"]');
+        return el ? el.value.trim() : '';
+    }
+
+    function isValidDate(str) {
+        if (!/^\d{2}\/\d{2}\/\d{4}$/.test(str)) return false;
+        var parts = str.split('/');
+        var d = parseInt(parts[0], 10);
+        var m = parseInt(parts[1], 10);
+        var y = parseInt(parts[2], 10);
+        if (m < 1 || m > 12) return false;
+        if (d < 1 || d > 31) return false;
+        if (y < 2024 || y > 2030) return false;
+        return true;
+    }
+
+    function validateForm() {
+        var isWalkIn = getRadio('isWalkIn');
+        var contact = getRadio('contactPreference');
+        var alerts = getRadio('whatsappAlerts');
+
+        var valid = true;
+        if (!isWalkIn) valid = false;
+
+        if (isWalkIn === 'no') {
+            var addr = companyAddrPreset.value === 'Other' ? companyAddrCustom.value.trim() : companyAddrPreset.value;
+            if (!addr) valid = false;
+        }
+
+        if (isWalkIn === 'yes') {
+            if (!val('walkInAddress')) valid = false;
+            if (!isValidDate(val('walkInStartDate'))) valid = false;
+            if (!isValidDate(val('walkInEndDate'))) valid = false;
+            if (!val('walkInStartTime')) valid = false;
+            if (!val('walkInEndTime')) valid = false;
+        }
+
+        if (!contact) valid = false;
+
+        if (contact === 'other') {
+            if (!val('recruiterName')) valid = false;
+            if (!val('recruiterWhatsApp') || !/^[0-9]{10}$/.test(val('recruiterWhatsApp'))) valid = false;
+            if (!val('recruiterEmail') || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('recruiterEmail'))) valid = false;
+        }
+
+        if (!alerts) valid = false;
+
+        continueBtn.disabled = !valid;
+    }
+
+    /* ─── Listen to all inputs ─── */
+    document.querySelectorAll('#step3Form input, #step3Form select, #step3Form textarea').forEach(function(el) {
+        el.addEventListener('change', validateForm);
+        el.addEventListener('input', validateForm);
+    });
+
+    /* ─── Init ─── */
+    updateWalkIn();
+    updateContact();
+    validateForm();
+})();
+</script>

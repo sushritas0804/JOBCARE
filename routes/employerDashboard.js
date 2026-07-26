@@ -330,4 +330,115 @@ router.post('/jobs/create/step2', async (req, res) => {
     }
 });
 
+/* ─── Step 3: Interviewer Information ─── */
+
+router.get('/jobs/create/step3', async (req, res) => {
+    try {
+        const employer = await Employer.findById(req.session.employer.id);
+        if (!employer) return res.redirect('/employer/logout');
+
+        const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
+        if (!draft || draft.currentStep < 3) return res.redirect('/employer/dashboard/jobs/create');
+
+        const hasDraft = draft.currentStep > 3;
+        const draftStep = hasDraft ? draft.currentStep : null;
+
+        res.locals.layout = 'layouts/wizard';
+        res.render('employer/job-post/step3', {
+            title: 'JOBCARE - Interviewer Information',
+            employer: employer,
+            job: draft.toObject(),
+            currentStep: 3,
+            hasDraft: hasDraft,
+            draftStep: draftStep,
+            error: null
+        });
+    } catch (err) {
+        console.error('Job create step3 GET error:', err);
+        res.redirect('/employer/dashboard/jobs');
+    }
+});
+
+router.post('/jobs/create/step3', async (req, res) => {
+    try {
+        const employer = await Employer.findById(req.session.employer.id);
+        if (!employer) return res.redirect('/employer/logout');
+
+        const {
+            isWalkIn, companyAddressPreset, companyAddressCustom,
+            walkInAddress, walkInFloorPlot, walkInStartDate, walkInEndDate,
+            walkInStartTime, walkInEndTime, walkInInstructions,
+            contactPreference, recruiterName, recruiterWhatsApp, recruiterEmail,
+            whatsappAlerts
+        } = req.body;
+
+        /* Determine company address */
+        const finalCompanyAddress = companyAddressPreset === 'Other'
+            ? (companyAddressCustom || '').trim()
+            : (companyAddressPreset || '').trim();
+
+        /* Validation */
+        const errors = [];
+        if (!isWalkIn) errors.push('Please select walk-in interview option');
+        if (isWalkIn === 'no' && !finalCompanyAddress) errors.push('Please provide the company address');
+        if (isWalkIn === 'yes') {
+            if (!walkInAddress) errors.push('Please provide the walk-in address');
+            if (!walkInStartDate || !/^\d{2}\/\d{2}\/\d{4}$/.test(walkInStartDate)) errors.push('Please enter a valid start date (dd/mm/yyyy)');
+            if (!walkInEndDate || !/^\d{2}\/\d{2}\/\d{4}$/.test(walkInEndDate)) errors.push('Please enter a valid end date (dd/mm/yyyy)');
+            if (!walkInStartTime) errors.push('Please select walk-in start time');
+            if (!walkInEndTime) errors.push('Please select walk-in end time');
+        }
+        if (!contactPreference) errors.push('Please select a communication preference');
+        if (contactPreference === 'other') {
+            if (!recruiterName) errors.push("Please provide the recruiter's name");
+            if (!recruiterWhatsApp || !/^[0-9]{10}$/.test(recruiterWhatsApp)) errors.push("Please provide a valid 10-digit WhatsApp number");
+            if (!recruiterEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recruiterEmail)) errors.push("Please provide a valid email address");
+        }
+        if (!whatsappAlerts) errors.push('Please select a notification preference');
+
+        if (errors.length > 0) {
+            const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
+            const jobData = draft ? draft.toObject() : {};
+            Object.assign(jobData, req.body);
+            jobData.companyAddress = finalCompanyAddress;
+
+            return res.render('employer/job-post/step3', {
+                title: 'JOBCARE - Interviewer Information',
+                employer: employer,
+                job: jobData,
+                currentStep: 3,
+                hasDraft: false,
+                draftStep: null,
+                error: errors[0]
+            });
+        }
+
+        const draft = await Job.findOne({ employer: employer._id, status: 'draft' }).sort({ updatedAt: -1 });
+        if (!draft) return res.redirect('/employer/dashboard/jobs/create');
+
+        await Job.findByIdAndUpdate(draft._id, {
+            isWalkIn,
+            companyAddress: finalCompanyAddress,
+            walkInAddress: (walkInAddress || '').trim(),
+            walkInFloorPlot: (walkInFloorPlot || '').trim(),
+            walkInStartDate: (walkInStartDate || '').trim(),
+            walkInEndDate: (walkInEndDate || '').trim(),
+            walkInStartTime: walkInStartTime || '',
+            walkInEndTime: walkInEndTime || '',
+            walkInInstructions: (walkInInstructions || '').trim(),
+            contactPreference,
+            recruiterName: (recruiterName || '').trim(),
+            recruiterWhatsApp: (recruiterWhatsApp || '').trim(),
+            recruiterEmail: (recruiterEmail || '').trim(),
+            whatsappAlerts,
+            currentStep: 4
+        });
+
+        return res.redirect('/employer/dashboard/jobs/create/step4');
+    } catch (err) {
+        console.error('Job create step3 POST error:', err);
+        return res.redirect('/employer/dashboard/jobs/create/step3');
+    }
+});
+
 module.exports = router;
